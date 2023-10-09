@@ -9,19 +9,26 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth/mongodb-adapter": "^2.0.1",
+    "@headlessui/react": "^1.7.17",
+    "mongoose": "^7.5.4",
+    "next": "latest",
+    "next-auth": "^4.23.2",
     "react": "latest",
     "react-dom": "latest",
-    "next": "latest"
+    "react-icons": "^4.11.0"
   },
   "devDependencies": {
-    "typescript": "latest",
-    "@types/react": "latest",
+    "@tailwindcss/typography": "^0.5.10",
     "@types/node": "latest",
+    "@types/react": "latest",
     "@types/react-dom": "latest",
     "autoprefixer": "latest",
+    "daisyui": "^3.8.1",
+    "eslint": "latest",
+    "eslint-config-next": "latest",
     "postcss": "latest",
     "tailwindcss": "latest",
-    "eslint": "latest",
-    "eslint-config-next": "latest"
+    "typescript": "latest"
   }
 }

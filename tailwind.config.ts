@@ -6,15 +6,38 @@ const config: Config = {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  darkMode: "class",
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-      },
+ 
     },
   },
-  plugins: [],
+  plugins: [ require("daisyui")],
+  daisyui: {
+    themes: ["winter","forest", "emerald", "dark", {
+      aesdLight: {
+      "primary": "#1e40af",
+      "secondary": "#2563EB",    
+      "accent": "#22c55e",      
+      "neutral": "#333c4d",      
+      "base-100": "#F1F5F9",      
+      "info": "#3abff8",    
+      "success": "#16a34a",      
+      "warning": "#fbbd23",
+      "error": "#e11d48",
+      },
+      aesdDark: {
+        "primary": "#1e40af",
+        "secondary": "#2563EB",
+        "accent": "#22c55e",
+        "neutral": "#333c4d",
+        "base-100": "#334155",
+        "info": "#3abff8",
+        "success": "#16a34a",
+        "warning": "#fbbd23",
+        "error": "#e11d48",
+    },
+    },],
+  },
 }
 export default config
