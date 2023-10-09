@@ -28,24 +28,6 @@ const schoolsSchema = new mongoose.Schema({
   aeriesID: Number,
 });
 
-// interface IBaseUser extends mongoose.Document {
-//   name: string;
-//   email: string;
-//   settings: {
-//     theme: string;
-//     mySchools: Map<string, IUserSchool>;
-//     columns: IColumn[];
-//   };
-// }
-
-// interface IUser {
-//   password?: string;
-// }
-
-// interface ISocialUser extends IUser {
-//   picture?: string;
-// }
-
 const userSchoolsSchema = new mongoose.Schema();
 userSchoolsSchema
   .add(schoolsSchema)
