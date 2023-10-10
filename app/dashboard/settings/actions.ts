@@ -1,30 +1,35 @@
 "use server";
-
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
-import { z } from "zod";
 
-// CREATE TABLE todos (
-//   id SERIAL PRIMARY KEY,
-//   text TEXT NOT NULL
-// );
+export async function updateMySchools(formData: FormData) {
+  const session = await getServerSession(authOptions);
 
-export async function updateMySchools(prevState: any, formData: FormData) {
-  console.log("PREV", prevState);
-  console.log("formData", formData);
-  //   const schema = z.object({
-  //     todo: z.string().min(1),
-  //   });
-  //   const data = schema.parse({
-  //     todo: formData.get("todo"),
-  //   });
-  //   try {
-  //     await sql`
-  //     INSERT INTO todos (text)
-  //     VALUES (${data.todo})
-  //   `;
-  //     revalidatePath("/");
-  //     return { message: `Added todo ${data.todo}` };
-  //   } catch (e) {
-  //     return { message: "Failed to create todo" };
-  //   }
+  // console.log("USERID: ", session!.user._id);
+
+  console.log("------⌄⌄⌄FORM DATA⌄⌄⌄------\n");
+  console.log("formData: ", formData);
+  console.log("----^^^FORM DATA^^--------\n");
+
+  // / Convert FormData to a regular JavaScript object
+  const formDataObject: Record<string, string | File> = {};
+  formData.forEach((value, key) => {
+    formDataObject[key] = value;
+  });
+
+  console.log("FORMDATA OBJECT: ", formDataObject);
+
+  await fetch(`http://localhost:3000/api/users/${session!.user._id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  });
+
+  // Use fetch to update user schools
+
+  // Clear cache
+  // revalidatePath("/");
 }
