@@ -1,35 +1,33 @@
 "use server";
+import { User } from "@/app/_modles/userModel";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { dbConnect } from "@/app/db/dbConnect";
+import camelCaseString from "@/utils/camelize";
 import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
 
-export async function updateMySchools(formData: FormData) {
+interface School {
+  name: string;
+  _id: string;
+  active: boolean;
+}
+
+export async function updateSchool(school: School) {
   const session = await getServerSession(authOptions);
 
-  // console.log("USERID: ", session!.user._id);
+  const userId = session!.user._id;
+  const schoolKey = camelCaseString(school.name);
 
-  console.log("------⌄⌄⌄FORM DATA⌄⌄⌄------\n");
-  console.log("formData: ", formData);
-  console.log("----^^^FORM DATA^^--------\n");
+  await dbConnect();
+  const user = await User.findById(session!.user._id);
 
-  // / Convert FormData to a regular JavaScript object
-  const formDataObject: Record<string, string | File> = {};
-  formData.forEach((value, key) => {
-    formDataObject[key] = value;
+  if (!user) return;
+
+  await user.settings.mySchools.set(schoolKey, {
+    ...school,
+    active: !school.active,
   });
+  await user.save();
 
-  console.log("FORMDATA OBJECT: ", formDataObject);
-
-  await fetch(`http://localhost:3000/api/users/${session!.user._id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(formData),
-  });
-
-  // Use fetch to update user schools
-
-  // Clear cache
-  // revalidatePath("/");
+  revalidatePath("/");
 }
