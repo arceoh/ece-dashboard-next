@@ -1,6 +1,7 @@
 import ColumnToggleMenu from "./Components/ColumnToggleMenu";
 import FilterSwitchButton from "./Components/FilterSwitchButton";
 import FiltersResetButton from "./Components/FiltersResetButton";
+import SearchInput from "./Components/SearchInput";
 import StatusResetButton from "./Components/StatusResetButton";
 import StatusSwitchButton from "./Components/StatusSwitchButton";
 import TableOfSurveys from "./Components/TableOfSurveys";
@@ -30,11 +31,7 @@ const DashboardHome = () => {
           <ColumnToggleMenu />
         </div>
         <div>
-          <input
-            type="text"
-            placeholder="Search by Student Name"
-            className="input input-sm input-bordered w-full max-w-xs"
-          />
+          <SearchInput />
         </div>
       </div>
       <div>
