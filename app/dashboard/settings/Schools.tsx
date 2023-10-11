@@ -8,7 +8,6 @@ const Schools = async () => {
   const session = await getServerSession(authOptions);
 
   if (!session) {
-    // Handle the case where there is no session (user is not authenticated)
     return <div>You are not authenticated.</div>;
   }
 

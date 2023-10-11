@@ -20,7 +20,6 @@ interface School {
 }
 
 export default function UpdateCheckbox({ school }: Props) {
-  //const [isPending, startTransition] = useTransition()
   const router = useRouter();
   const { pending } = useFormStatus();
 
