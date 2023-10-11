@@ -29,5 +29,5 @@ export async function updateSchool(school: School) {
   });
   await user.save();
 
-  revalidatePath("/");
+  revalidatePath("/dashboard/settings");
 }
