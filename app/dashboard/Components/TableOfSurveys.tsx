@@ -1,36 +1,18 @@
 import React from "react";
+import TableHeader from "./TableHeader";
 
-const Table = () => {
+const TableOfSurveys = () => {
   return (
-    <div className="overflow-x-auto">
-      <table className="table">
-        {/* head */}
-        <thead>
-          <tr>
-            <th></th>
-            <th>Name</th>
-            <th>Job</th>
-            <th>Favorite Color</th>
-            <th>Guardian</th>
-            <th>Status</th>
-            <th>Address</th>
-            <th>City</th>
-            <th>State</th>
-            <th>Zip</th>
-            <th>Cash Aid</th>
-            <th>Income</th>
-            <th>Birthdate</th>
-            <th>IEP</th>
-            <th>Returning</th>
-            <th>Edit</th>
-          </tr>
-        </thead>
+    <div className="overflow-x-auto my-4">
+      <table className="table table-zebra">
+        <TableHeader />
         <tbody>
           {/* row 1 */}
           <tr>
             <th>1</th>
-            <td>Cy Ganderton</td>
-            <td>Quality Control Specialist</td>
+            <td>Blue</td>
+            <td>Blue</td>
+            <td>Blue</td>
             <td>Blue</td>
             <td>Blue</td>
             <td>Blue</td>
@@ -47,8 +29,10 @@ const Table = () => {
           {/* row 2 */}
           <tr>
             <th>2</th>
-            <td>Hart Hagerty</td>
-            <td>Desktop Support Technician</td>
+
+            <td>Blue</td>
+            <td>Blue</td>
+            <td>Blue</td>
             <td>Purple</td>
             <td>Blue</td>
             <td>Blue</td>
@@ -65,9 +49,10 @@ const Table = () => {
           {/* row 3 */}
           <tr>
             <th>3</th>
-            <td>Brice Swyre</td>
-            <td>Tax Accountant</td>
+            <td>Blue</td>
+            <td>Blue</td>
             <td>Red</td>
+            <td>Blue</td>
             <td>Blue</td>
             <td>Blue</td>
             <td>Blue</td>
@@ -86,4 +71,4 @@ const Table = () => {
   );
 };
 
-export default Table;
+export default TableOfSurveys;

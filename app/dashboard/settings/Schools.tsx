@@ -21,20 +21,7 @@ const Schools = async () => {
     <div className="sm:grid sm:grid-cols-2 sm:gap-x-28 lg:grid-cols-3">
       {Object.keys(schools).map((schoolKey) => {
         const school = schools[schoolKey];
-        return (
-          <div
-            key={school._id}
-            className="form-control hover:bg-base-200 rounded-md px-2"
-          >
-            <label
-              htmlFor={camelCaseString(school.name)}
-              className="label cursor-pointer"
-            >
-              <span className="label-text">{school.name}</span>
-              <UpdateCheckbox school={school} />
-            </label>
-          </div>
-        );
+        return <UpdateCheckbox school={school} />;
       })}
     </div>
   );

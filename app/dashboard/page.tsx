@@ -1,5 +1,5 @@
 import ColumnToggleMenu from "./Components/ColumnToggleMenu";
-import Table from "./Components/Table";
+import TableOfSurveys from "./Components/TableOfSurveys";
 
 const DashboardHome = () => {
   return (
@@ -35,7 +35,7 @@ const DashboardHome = () => {
       </div>
 
       <div>
-        <Table />
+        <TableOfSurveys />
       </div>
     </div>
   );

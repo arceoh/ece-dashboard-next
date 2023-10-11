@@ -31,3 +31,33 @@ export async function updateSchool(school: School) {
 
   revalidatePath("/dashboard/settings");
 }
+
+export async function toggleAllSchools(schools: School[]) {
+  const session = await getServerSession(authOptions);
+
+  const userId = session!.user._id;
+
+  // TODO: Check if all checked or unchecked
+  const someChecked = schools.some((school) => school.active === true);
+
+  if (someChecked) {
+    schools.forEach((school) => (school.active = false));
+  } else {
+    schools.forEach((school) => (school.active = true));
+  }
+
+  // console.log(schools);
+
+  // await dbConnect();
+  // const user = await User.findById(session!.user._id);
+
+  // if (!user) return;
+
+  // await user.settings.mySchools.set(schoolKey, {
+  //   ...school,
+  //   active: !school.active,
+  // });
+  // await user.save();
+
+  revalidatePath("/dashboard/settings");
+}

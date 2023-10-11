@@ -1,32 +1,28 @@
 "use client";
+import useColumnViewStore from "@/app/hooks/useColumnViewStore";
 import { Popover } from "@headlessui/react";
 import { AiFillCaretDown } from "react-icons/ai";
+import ColumnSelectCheckbox from "./ColumnSelectCheckbox";
 
 const ColumnToggleMenu = () => {
+  const { columns, toggleColumn } = useColumnViewStore();
+
   return (
-    <Popover className="relative dropdown">
-      <Popover.Button className="btn btn-sm m-1">
+    <Popover className="dropdown">
+      <Popover.Button className="btn btn-xs">
         Columns
         <AiFillCaretDown />
       </Popover.Button>
 
-      <Popover.Panel className="absolute dropdown-content z-[1] menu p-2 shadow rounded-box w-52 bg-base-100">
-        <div className="flex flex-col space-y-4 p-2">
-          <div className="form-control">
-            <label className="label cursor-pointer">
-              <span className="label-text">Address</span>
-              <input type="checkbox" className="checkbox checkbox-secondary" />
-            </label>
-          </div>
-          <div className="form-control">
-            <label className="label cursor-pointer">
-              <span className="label-text">Address</span>
-              <input type="checkbox" className="checkbox checkbox-secondary" />
-            </label>
-          </div>
-        </div>
-
-        <img src="/solutions.jpg" alt="" />
+      <Popover.Panel className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+        {columns.map((item) => (
+          <ColumnSelectCheckbox
+            key={item.title}
+            title={item.title}
+            value={item.value}
+            onChange={() => toggleColumn(item.title)}
+          />
+        ))}
       </Popover.Panel>
     </Popover>
   );

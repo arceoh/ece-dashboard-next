@@ -29,18 +29,29 @@ export default function UpdateCheckbox({ school }: Props) {
   );
 
   return (
-    <input
-      type="checkbox"
-      checked={optimisticSchool.active}
-      id={school._id}
-      name={camelCaseString(school.name)}
-      onChange={async () => {
-        addOptimisticSchool(!school.active);
-        await updateSchool(school);
-        router.refresh(); // updates client-side cache
-      }}
-      disabled={pending}
-      className="checkbox checkbox-accent"
-    />
+    <div
+      key={school._id}
+      className="form-control hover:bg-base-200 rounded-md px-2"
+    >
+      <label
+        htmlFor={camelCaseString(school.name)}
+        className="label cursor-pointer"
+      >
+        <span className="label-text">{school.name}</span>
+        <input
+          type="checkbox"
+          checked={optimisticSchool.active}
+          id={school._id}
+          name={camelCaseString(school.name)}
+          onChange={async () => {
+            addOptimisticSchool(!school.active);
+            await updateSchool(school);
+            router.refresh(); // updates client-side cache
+          }}
+          disabled={pending}
+          className="checkbox checkbox-accent"
+        />
+      </label>
+    </div>
   );
 }
