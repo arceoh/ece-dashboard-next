@@ -1,11 +1,11 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose";
 
-
-interface ISchool extends mongoose.Document {
-    aeriesID: string;
-    name_full: string;
-    name: string;
-  }
+export interface ISchool extends mongoose.Document {
+  aeriesID: string;
+  name_full: string;
+  name: string;
+  active?: boolean; // Used for User model settings
+}
 
 const schoolSchema = new mongoose.Schema({
   aeriesID: {
@@ -17,7 +17,7 @@ const schoolSchema = new mongoose.Schema({
   name: { type: String, required: [true, "Short Name Required"] },
 });
 
-
-const School = mongoose.models.School || mongoose.model<ISchool>('School', schoolSchema);
+const School =
+  mongoose.models.School || mongoose.model<ISchool>("School", schoolSchema);
 
 export { School };
