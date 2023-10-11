@@ -1,19 +1,9 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import { Session } from "next-auth";
 import { User } from "@/app/_modles/userModel";
 import { School } from "@/app/_modles/schoolModel";
 import { dbConnect } from "@/app/db/dbConnect";
 import camelize from "@/utils/camelize";
-
-// export interface CustomSession extends Session {
-//   user: {
-//     name?: string | null | undefined;
-//     email?: string | null | undefined;
-//     image?: string | null | undefined;
-//     _id?: string;
-//   };
-// }
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -38,7 +28,6 @@ export const authOptions: NextAuthOptions = {
       // If user exist
       const userExist = await User.findOne({ email: userEmail });
       if (userExist) {
-        console.log("Found Existing User:", userExist);
         return true;
       } else {
         // Create new User
@@ -71,7 +60,7 @@ export const authOptions: NextAuthOptions = {
         }
       }
     },
-    // Add _id to session
+    // Add User _id to session
     session: async ({ session }) => {
       if (session?.user) {
         try {
@@ -87,6 +76,7 @@ export const authOptions: NextAuthOptions = {
           );
         }
       }
+      console.log(session);
       return session;
     },
   },
