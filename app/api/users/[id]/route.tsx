@@ -8,8 +8,6 @@ interface Props {
 
 export async function GET(request: NextRequest, { params: { id } }: Props) {
   await dbConnect();
-
   const user = await User.findById(id);
-
   return NextResponse.json({ user });
 }
