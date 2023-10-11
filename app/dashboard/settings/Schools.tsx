@@ -1,7 +1,6 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import camelCaseString from "@/utils/camelize";
-import { useState } from "react";
 import UpdateCheckbox from "./UpdateCheckbox";
 
 const Schools = async () => {
