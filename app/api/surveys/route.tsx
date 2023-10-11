@@ -4,6 +4,6 @@ import { Survey } from "@/app/_modles/surveyModel";
 
 export async function GET(request: NextRequest) {
   await dbConnect();
-  const surveys = await Survey.find().limit(10);
-  return NextResponse.json({ message: "Hello World", surveys });
+  const surveys = await Survey.find().limit(5);
+  return NextResponse.json(surveys);
 }

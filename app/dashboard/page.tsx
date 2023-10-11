@@ -8,36 +8,38 @@ import TableOfSurveys from "./Components/TableOfSurveys";
 
 const DashboardHome = () => {
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <div className="filters flex justify-between items-center">
-        <div className="space-x-4 flex">
-          <div className="btn-group btn-group-vertical lg:btn-group-horizontal">
-            <FiltersResetButton />
-            <FilterSwitchButton title="Cash Aid" filterSlug="cashAid" />
-            <FilterSwitchButton title="IEP" filterSlug="IEP" />
-            <FilterSwitchButton title="DLI" filterSlug="DLI" />
-            <FilterSwitchButton title="Returning" filterSlug="Returning" />
+    <>
+      <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 pt-4">
+        <h1>Dashboard</h1>
+        <div className="filters flex justify-between items-center">
+          <div className="space-x-4 flex">
+            <div className="btn-group btn-group-vertical lg:btn-group-horizontal">
+              <FiltersResetButton />
+              <FilterSwitchButton title="Cash Aid" filterSlug="cashAid" />
+              <FilterSwitchButton title="IEP" filterSlug="IEP" />
+              <FilterSwitchButton title="DLI" filterSlug="DLI" />
+              <FilterSwitchButton title="Returning" filterSlug="Returning" />
+            </div>
+            <div className="btn-group btn-group-vertical lg:btn-group-horizontal">
+              <StatusResetButton />
+              <StatusSwitchButton title="New" StatusSlug="New" />
+              <StatusSwitchButton title="Pending" StatusSlug="Pending" />
+              <StatusSwitchButton title="Enrolled" StatusSlug="Enrolled" />
+              <StatusSwitchButton title="Denied" StatusSlug="Denied" />
+            </div>
           </div>
-          <div className="btn-group btn-group-vertical lg:btn-group-horizontal">
-            <StatusResetButton />
-            <StatusSwitchButton title="New" StatusSlug="New" />
-            <StatusSwitchButton title="Pending" StatusSlug="Pending" />
-            <StatusSwitchButton title="Enrolled" StatusSlug="Enrolled" />
-            <StatusSwitchButton title="Denied" StatusSlug="Denied" />
+          <div>
+            <ColumnToggleMenu />
           </div>
-        </div>
-        <div>
-          <ColumnToggleMenu />
-        </div>
-        <div>
-          <SearchInput />
+          <div>
+            <SearchInput />
+          </div>
         </div>
       </div>
       <div>
         <TableOfSurveys />
       </div>
-    </div>
+    </>
   );
 };
 

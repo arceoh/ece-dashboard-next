@@ -1,39 +1,40 @@
 import mongoose from "mongoose";
+import { Survey } from "@/app/entities/Survey";
 
-interface IStudent extends mongoose.Document {
-  firstName: string;
-  middleName?: string;
-  lastName: string;
-  birthdate: Date;
-  enrollInIEP?: boolean;
-  isReturningStudent?: boolean;
-}
+// interface IStudent extends mongoose.Document {
+//   firstName: string;
+//   middleName?: string;
+//   lastName: string;
+//   birthdate: Date;
+//   enrollInIEP?: boolean;
+//   isReturningStudent?: boolean;
+// }
 
-interface IGuardian extends mongoose.Document {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  preferedLanguage?: string;
-  address_1: string;
-  address_2?: string;
-  city: string;
-  state: string;
-  zip: number;
-  cashAid?: boolean;
-  familySize: number;
-  monthlyIncome: number;
-  preferedLocation: string;
-  dliInterest?: boolean;
-}
+// interface IGuardian extends mongoose.Document {
+//   firstName: string;
+//   lastName: string;
+//   email: string;
+//   phone: string;
+//   preferedLanguage?: string;
+//   address_1: string;
+//   address_2?: string;
+//   city: string;
+//   state: string;
+//   zip: number;
+//   cashAid?: boolean;
+//   familySize: number;
+//   monthlyIncome: number;
+//   preferedLocation: string;
+//   dliInterest?: boolean;
+// }
 
-// Define the main survey schema
-interface ISurvey extends mongoose.Document {
-  student: IStudent;
-  guardian: IGuardian;
-  status: string;
-  note: string;
-}
+// // Define the main survey schema
+// interface ISurvey extends mongoose.Document {
+//   student: IStudent;
+//   guardian: IGuardian;
+//   status: string;
+//   note: string;
+// }
 
 const surveySchema = new mongoose.Schema(
   {
@@ -104,6 +105,6 @@ const surveySchema = new mongoose.Schema(
 );
 
 const Survey =
-  mongoose.models.Survey || mongoose.model <ISurvey> ("Survey", surveySchema);
+  mongoose.models.Survey || mongoose.model<Survey>("Survey", surveySchema);
 
 export { Survey };

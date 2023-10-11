@@ -11,6 +11,7 @@
   "dependencies": {
     "@auth/mongodb-adapter": "^2.0.1",
     "@headlessui/react": "^1.7.17",
+    "dayjs": "^1.11.10",
     "mongoose": "^7.6.1",
     "next": "latest",
     "next-auth": "^4.23.2",
