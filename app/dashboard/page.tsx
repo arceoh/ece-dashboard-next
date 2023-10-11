@@ -1,4 +1,8 @@
 import ColumnToggleMenu from "./Components/ColumnToggleMenu";
+import FilterSwitchButton from "./Components/FilterSwitchButton";
+import FiltersResetButton from "./Components/FiltersResetButton";
+import StatusResetButton from "./Components/StatusResetButton";
+import StatusSwitchButton from "./Components/StatusSwitchButton";
 import TableOfSurveys from "./Components/TableOfSurveys";
 
 const DashboardHome = () => {
@@ -7,19 +11,19 @@ const DashboardHome = () => {
       <h1>Dashboard</h1>
       <div className="filters flex justify-between items-center">
         <div className="space-x-4 flex">
-          <div className="flex">Filter by</div>
-
           <div className="btn-group btn-group-vertical lg:btn-group-horizontal">
-            <button className="btn btn-xs">Cash Aide</button>
-            <button className="btn btn-xs">IEP</button>
-            <button className="btn btn-xs">DLI</button>
-            <button className="btn btn-xs">Returning</button>
+            <FiltersResetButton />
+            <FilterSwitchButton title="Cash Aid" filterSlug="cashAid" />
+            <FilterSwitchButton title="IEP" filterSlug="IEP" />
+            <FilterSwitchButton title="DLI" filterSlug="DLI" />
+            <FilterSwitchButton title="Returning" filterSlug="Returning" />
           </div>
           <div className="btn-group btn-group-vertical lg:btn-group-horizontal">
-            <button className="btn btn-xs">New</button>
-            <button className="btn btn-xs">Pending</button>
-            <button className="btn btn-xs">Enrolled</button>
-            <button className="btn btn-xs">Denied</button>
+            <StatusResetButton />
+            <StatusSwitchButton title="New" StatusSlug="New" />
+            <StatusSwitchButton title="Pending" StatusSlug="Pending" />
+            <StatusSwitchButton title="Enrolled" StatusSlug="Enrolled" />
+            <StatusSwitchButton title="Denied" StatusSlug="Denied" />
           </div>
         </div>
         <div>
@@ -28,12 +32,11 @@ const DashboardHome = () => {
         <div>
           <input
             type="text"
-            placeholder="Type here"
+            placeholder="Search by Student Name"
             className="input input-sm input-bordered w-full max-w-xs"
           />
         </div>
       </div>
-
       <div>
         <TableOfSurveys />
       </div>
