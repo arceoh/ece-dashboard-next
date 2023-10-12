@@ -2,7 +2,7 @@
 import { User } from "@/app/_modles/userModel";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { dbConnect } from "@/app/db/dbConnect";
-import camelCaseString from "@/utils/camelize";
+import camelCaseString from "@/utils/camelCaseString";
 import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
 

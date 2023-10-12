@@ -3,7 +3,7 @@
 import { experimental_useFormStatus as useFormStatus } from "react-dom";
 import { useRouter } from "next/navigation";
 import { experimental_useOptimistic as useOptimistic } from "react";
-import camelCaseString from "@/utils/camelize";
+import camelCaseString from "@/utils/camelCaseString";
 import { updateSchool } from "./actions";
 
 interface Props {

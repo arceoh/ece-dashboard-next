@@ -3,7 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 import { User } from "@/app/_modles/userModel";
 import { School } from "@/app/_modles/schoolModel";
 import { dbConnect } from "@/app/db/dbConnect";
-import camelize from "@/utils/camelize";
+import camelize from "@/utils/camelCaseString";
 
 export const authOptions: NextAuthOptions = {
   providers: [

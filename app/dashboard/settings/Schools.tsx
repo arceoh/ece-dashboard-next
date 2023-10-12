@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import camelCaseString from "@/utils/camelize";
+import camelCaseString from "@/utils/camelCaseString";
 import UpdateCheckbox from "./UpdateCheckbox";
 import { ISchool } from "@/app/_modles/schoolModel";
 

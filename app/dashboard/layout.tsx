@@ -13,5 +13,3 @@ export default function DashboardLayout({ children }: Props) {
     </div>
   );
 }
-
-// mx-auto max-w-7xl sm:px-6 lg:px-8 pt-4

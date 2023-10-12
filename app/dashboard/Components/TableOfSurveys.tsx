@@ -14,8 +14,6 @@ const TableOfSurveys = async () => {
   const response = await fetch(`http://localhost:3000/api/surveys`);
   const surveys = await response.json();
 
-  console.log(surveys);
-
   return (
     <div className="overflow-x-auto my-4">
       <table className="table table-zebra">

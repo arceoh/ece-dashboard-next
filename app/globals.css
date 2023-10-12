@@ -6,4 +6,11 @@
   main h1 {
     @apply text-3xl font-bold mb-4;
   }
+  main h2,
+  main form legend {
+    @apply mb-4 text-2xl font-bold capitalize;
+  }
+  main form.edit-survey label.label {
+    @apply font-medium;
+  }
 }
