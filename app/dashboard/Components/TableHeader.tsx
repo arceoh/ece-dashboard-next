@@ -5,7 +5,7 @@ import ColumnToggleView from "./ColumnToggleView";
 
 const TableHeader = () => {
   return (
-    <thead className="">
+    <thead className="border-b-2 border-t-2">
       <tr>
         <th align="center" scope="col">
           Guardian
