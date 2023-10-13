@@ -7,7 +7,7 @@ interface Props {
 }
 
 const TableOfSurveys = async ({ searchParams }: Props) => {
-  console.log("TABLE: SEARCH PARAMS:", searchParams);
+  // console.log("TABLE: SEARCH PARAMS:", searchParams);
 
   const baseUrl = "http://localhost:3000/api/surveys";
 
@@ -26,6 +26,7 @@ const TableOfSurveys = async ({ searchParams }: Props) => {
     headers: {
       "Content-Type": "application/json",
     },
+    cache: "no-cache",
   });
   const data = await res.json();
 
