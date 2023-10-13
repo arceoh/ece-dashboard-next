@@ -23,7 +23,6 @@ const ToggleQueryFParamButton = ({
 
   return (
     <Link
-      replace
       className={`${active ? "btn-active bg-blue-700" : ""} btn btn-xs `}
       href={{
         pathname: "/dashboard",

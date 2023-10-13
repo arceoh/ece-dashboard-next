@@ -59,7 +59,7 @@ const DashboardHome = ({
         </div>
       </div>
       <div>
-        <TableOfSurveys />
+        <TableOfSurveys searchParams={searchParams} />
       </div>
     </>
   );

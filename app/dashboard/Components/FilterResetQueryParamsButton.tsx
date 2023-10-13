@@ -23,7 +23,6 @@ const FilterResetQueryParamsButton = ({
 
   return (
     <Link
-      replace
       className="btn btn-xs"
       href={{
         pathname: "/dashboard",
