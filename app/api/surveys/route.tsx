@@ -67,7 +67,6 @@ export async function GET(req: NextApiRequest) {
     }),
   };
 
-  // const filters =  params.get("name"); // is the string "Jonathan Smith".
   await dbConnect();
 
   const surveys = await Survey.find({ ...searchFilters }).limit(5);
