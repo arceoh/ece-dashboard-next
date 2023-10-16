@@ -14,10 +14,10 @@ export async function GET(req: NextApiRequest) {
   if (!session) {
     return NextResponse.redirect("/api/auth/signin");
   }
-  const userID = session.user._id;
 
   await dbConnect();
-  const user = await User.findOne({ _id: userID });
+
+  const user = await User.findOne({ _id: session.user._id });
 
   const activeSchools: string[] = [];
 
@@ -44,6 +44,8 @@ export async function GET(req: NextApiRequest) {
   const enrolled = queryParams.get("enrolled") ? "Enrolled" : "";
   const denied = queryParams.get("denied") ? "Denied" : "";
 
+  const searchText = queryParams.get("search") || "";
+
   const statusFilter = [newStudent, pending, enrolled, denied].filter(Boolean);
 
   const searchFilters = {
@@ -55,14 +57,14 @@ export async function GET(req: NextApiRequest) {
     ...(cashAid && { "guardian.cashAid": true }),
     ...(statusFilter.length > 0 && { status: { $in: statusFilter } }), // If statusFilter has values add filter
     "guardian.preferedLocation": { $in: activeSchools }, // Filter from users settings.mySchools.active === true
-    // ...(searchText.length > 3 && {
-    //   $or: [
-    //     { "student.firstName": { $regex: new RegExp(searchText, "i") } },
-    //     { "student.lastName": { $regex: new RegExp(searchText, "i") } },
-    //     { "guardian.firstName": { $regex: new RegExp(searchText, "i") } },
-    //     { "guardian.lastName": { $regex: new RegExp(searchText, "i") } },
-    //   ],
-    // }),
+    ...(searchText.length > 3 && {
+      $or: [
+        { "student.firstName": { $regex: new RegExp(searchText, "i") } },
+        { "student.lastName": { $regex: new RegExp(searchText, "i") } },
+        { "guardian.firstName": { $regex: new RegExp(searchText, "i") } },
+        { "guardian.lastName": { $regex: new RegExp(searchText, "i") } },
+      ],
+    }),
   };
 
   // const filters =  params.get("name"); // is the string "Jonathan Smith".

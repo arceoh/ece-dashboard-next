@@ -46,7 +46,6 @@ const SurveyForms = ({ survey }: Props) => {
     router.push("/dashboard");
   };
 
-  //   console.log(survey);
   return (
     <form className="edit-survey mb-28" onSubmit={handleSubmit(processForm)}>
       <div className="space-y-5">
