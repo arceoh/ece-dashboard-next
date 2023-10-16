@@ -1,17 +1,16 @@
-import Link from "next/link";
-import React from "react";
-import ThemeToggle from "../ThemeToggle";
-import { AiFillSetting } from "react-icons/ai";
-import { TbLogin, TbLogout } from "react-icons/tb";
-import { AiFillDatabase } from "react-icons/ai";
-import { useSession } from "next-auth/react";
-import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
+import Link from "next/link";
+import { AiFillDatabase, AiFillSetting } from "react-icons/ai";
+import { TbLogout } from "react-icons/tb";
+import ThemeToggle from "../ThemeToggle";
+import Image from "next/image";
 
 const Navbar = async () => {
   const session = await getServerSession(authOptions);
   let avatarSrc;
   if (session && session.user && session.user.image) {
+    // console.log("SESSION", session);
     avatarSrc = session.user.image;
   }
 
@@ -52,7 +51,9 @@ const Navbar = async () => {
           </div>
           <div className="avatar ml-4">
             <div className="w-9 rounded-full">
-              {avatarSrc && <img src={session!.user!.image!} />}
+              {avatarSrc && (
+                <Image src={avatarSrc} width={500} height={500} alt="" />
+              )}
             </div>
           </div>
         </div>

@@ -1,38 +1,50 @@
-import { NextRequest, NextResponse } from "next/server";
-import { dbConnect } from "@/app/db/dbConnect";
 import { Survey } from "@/app/_modles/surveyModel";
+import { dbConnect } from "@/app/db/dbConnect";
+import { NextResponse } from "next/server";
+import { User } from "../../_modles/userModel";
 
-import type { NextApiRequest, NextApiResponse } from "next";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import type { NextApiRequest } from "next";
 
-// export async function GET(request: NextRequest) {
-//   console.log("REQUEST", request);
-//   // console.log("REQUEST URL", request.url);
+import { getServerSession } from "next-auth/next";
 
-//   const url = request.url;
-//   // const filters =  params.get("name"); // is the string "Jonathan Smith".
-//   await dbConnect();
-//   const surveys = await Survey.find().limit(5);
-//   return NextResponse.json(surveys);
-// }
+export async function GET(req: NextApiRequest) {
+  const session = await getServerSession(authOptions);
 
-export async function GET(request: NextApiRequest) {
-  // console.log("query", request.url);
-  // console.log("REQUEST URL", request.url);
+  if (!session) {
+    return NextResponse.redirect("/api/auth/signin");
+  }
+  const userID = session.user._id;
 
-  const url = new URL(request.url!);
+  await dbConnect();
+  const user = await User.findOne({ _id: userID });
+
+  const activeSchools: string[] = [];
+
+  if (user!.settings.mySchools !== undefined) {
+    for (const [key, value] of user!.settings!.mySchools!.entries()) {
+      if (value.active) {
+        // @ts-ignore
+        activeSchools.push(value.name);
+      }
+    }
+  }
+
+  const url = new URL(req.url!);
 
   const queryParams = url.searchParams;
 
-  console.log(queryParams);
+  const cashAid = queryParams.get("cashAid") || false;
+  const returning = queryParams.get("returning") || false;
+  const iep = queryParams.get("iep") || false;
+  const dli = queryParams.get("dli") || false;
 
-  const cashAide = queryParams.get("cashAide") || "";
-  const returning = queryParams.get("returning") || "";
-  const iep = queryParams.get("iep") || "";
-  const dli = queryParams.get("dli") || "";
-  const newStudent = queryParams.get("new") || "";
-  const pending = queryParams.get("pending") || "";
-  const enrolled = queryParams.get("enrolled") || "";
-  const denied = queryParams.get("denied") || "";
+  const newStudent = queryParams.get("new") ? "New" : "";
+  const pending = queryParams.get("pending") ? "Pending" : "";
+  const enrolled = queryParams.get("enrolled") ? "Enrolled" : "";
+  const denied = queryParams.get("denied") ? "Denied" : "";
+
+  const statusFilter = [newStudent, pending, enrolled, denied].filter(Boolean);
 
   const searchFilters = {
     ...(dli && { "guardian.dliInterest": true }), // If DLI in filters add filter
@@ -40,9 +52,9 @@ export async function GET(request: NextApiRequest) {
       "student.isReturningStudent": true, // If "Returning" in filters add filter
     }),
     ...(iep && { "student.enrollInIEP": true }),
-    ...(cashAide && { "guardian.cashAid": true }),
-    // ...(statusFilter.length > 0 && { status: { $in: statusFilter } }), // If statusFilter has values add filter
-    // "guardian.preferedLocation": { $in: schools }, // Filter from users settings.mySchools.active === true
+    ...(cashAid && { "guardian.cashAid": true }),
+    ...(statusFilter.length > 0 && { status: { $in: statusFilter } }), // If statusFilter has values add filter
+    "guardian.preferedLocation": { $in: activeSchools }, // Filter from users settings.mySchools.active === true
     // ...(searchText.length > 3 && {
     //   $or: [
     //     { "student.firstName": { $regex: new RegExp(searchText, "i") } },

@@ -1,8 +1,6 @@
-import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import camelCaseString from "@/utils/camelCaseString";
+import { getServerSession } from "next-auth";
 import UpdateCheckbox from "./UpdateCheckbox";
-import { ISchool } from "@/app/_modles/schoolModel";
 
 const Schools = async () => {
   const session = await getServerSession(authOptions);

@@ -1,14 +1,14 @@
-import TableHeader from "./TableHeader";
+"use server";
 import { Survey } from "@/app/entities/Survey";
+import { headers } from "next/headers";
 import SurveyTableRow from "./SurveyTableRow";
+import TableHeader from "./TableHeader";
 
 interface Props {
   searchParams?: { [key: string]: string | string[] | undefined };
 }
 
 const TableOfSurveys = async ({ searchParams }: Props) => {
-  // console.log("TABLE: SEARCH PARAMS:", searchParams);
-
   const baseUrl = "http://localhost:3000/api/surveys";
 
   let queryString: string = "";
@@ -23,9 +23,7 @@ const TableOfSurveys = async ({ searchParams }: Props) => {
 
   const res = await fetch(urlWithParams, {
     method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: headers(),
     cache: "no-cache",
   });
   const data = await res.json();

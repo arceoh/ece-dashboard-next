@@ -73,10 +73,7 @@ const UserSchema = new mongoose.Schema<IUser>(
   }
 );
 
-// const userSchema = new mongoose.Schema()
-
 const User: mongoose.Model<IUser> =
   mongoose.models.User || mongoose.model<IUser>("User", UserSchema);
-// const SocialUser: mongoose.Model<ISocialUser> = mongoose.models.SocialUser || mongoose.model<ISocialUser>('SocialUser', socialUserSchema);
 
 export { User };
