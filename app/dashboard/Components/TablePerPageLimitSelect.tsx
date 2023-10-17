@@ -7,7 +7,6 @@ type Props = {
 
 const TablePerPageLimitSelect = ({ searchParams }: Props) => {
   const pageSizeOptions = [5, 10, 25, 50];
-  console.log(searchParams);
   const currentPageSize = Number(searchParams?.pageSize) || 5;
   let pageSize = 5;
   if (searchParams) {
