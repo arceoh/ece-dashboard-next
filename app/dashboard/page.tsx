@@ -4,6 +4,8 @@ import FilterResetQueryParamsButton from "./Components/FilterResetQueryParamsBut
 import SearchInput from "./Components/SearchInput";
 import TableOfSurveys from "./Components/TableOfSurveys";
 import ToggleQueryFParamButton from "./Components/ToggleQueryFParamButton";
+import { Suspense } from "react";
+import DashboardLoadingPage from "./loading";
 
 const filtersList = ["Cash Aid", "IEP", "DLI", "Returning"];
 const statusList = ["New", "Pending", "Enrolled", "Denied"];
@@ -59,7 +61,11 @@ const DashboardHome = ({
         </div>
       </div>
       <div>
-        <TableOfSurveys searchParams={searchParams} />
+        <Suspense
+          fallback={<DashboardLoadingPage searchParams={searchParams} />}
+        >
+          <TableOfSurveys searchParams={searchParams} />
+        </Suspense>
       </div>
     </>
   );
