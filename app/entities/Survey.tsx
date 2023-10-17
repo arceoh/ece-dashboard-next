@@ -1,5 +1,3 @@
-import { Student } from "./Student";
-import { Guardian } from "./Guardian";
 import z from "zod";
 
 export interface PaginatedSurveys {
@@ -7,14 +5,6 @@ export interface PaginatedSurveys {
   pages: number;
   surveys: Survey[];
 }
-
-// export interface Survey {
-//   student: Student;
-//   guardian: Guardian;
-//   note?: string;
-//   _id: string;
-//   status: string;
-// }
 
 export const SurveyFormDataSchema = z.object({
   student: z.object({
