@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import SurveyForms from "./_Components/SurveyForms";
 import { Survey } from "@/app/entities/Survey";
 
@@ -15,7 +16,9 @@ const EditSurveyPage = async ({ params: { survey_id } }: Props) => {
   return (
     <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 pt-4">
       <h1>Preschool Interest List Survey</h1>
-      <SurveyForms survey={survey} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <SurveyForms survey={survey} />
+      </Suspense>
     </div>
   );
 };

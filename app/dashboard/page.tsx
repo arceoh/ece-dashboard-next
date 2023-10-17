@@ -61,11 +61,7 @@ const DashboardHome = ({
         </div>
       </div>
       <div>
-        <Suspense
-          fallback={<DashboardLoadingPage searchParams={searchParams} />}
-        >
-          <TableOfSurveys searchParams={searchParams} />
-        </Suspense>
+        <TableOfSurveys searchParams={searchParams} />
       </div>
     </>
   );

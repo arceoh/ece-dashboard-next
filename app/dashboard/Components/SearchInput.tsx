@@ -1,27 +1,31 @@
 "use client";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ChangeEvent, use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { MdOutlineClear } from "react-icons/md";
 
 const SearchInput = () => {
   const searchParams = useSearchParams();
   const search = searchParams.get("search") || "";
+  console.log("SEARCH", search);
   const router = useRouter();
 
-  const [data, setData] = useState<string>(search);
-  const handleClear = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const [data, setData] = useState<string>(search || "");
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setData("");
-    router.push("/dashboard");
+    if (data.length < 3) {
+      return;
+    }
+    router.push(`/dashboard?search=${data}`);
   };
 
   useEffect(() => {
     setData(search);
-  }, []);
+  }, [search]);
 
   return (
-    <form className="join">
+    <form className="join" onSubmit={handleSubmit}>
       <input
         onChange={(e) => setData(e.currentTarget.value)}
         value={data}
@@ -38,18 +42,17 @@ const SearchInput = () => {
           data.length < 3 ? "btn-disabled" : ""
         }  btn  btn-sm join-item`}
       >
-        Submit
+        Search
       </Link>
-
-      <button
-        type="reset"
-        onClick={(e) => handleClear(e)}
+      <Link
+        href={"/dashboard"}
+        replace
         className={`${
-          data.length < 3 ? "btn-disabled" : ""
+          data.length < 1 ? "btn-disabled" : ""
         }  btn  btn-sm join-item`}
       >
         <MdOutlineClear /> <span className="sr-only">Clear</span>
-      </button>
+      </Link>
     </form>
   );
 };
