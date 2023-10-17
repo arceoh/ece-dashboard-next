@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import z from "zod";
 import { updateSurvey } from "../actions";
+import dayjs from "dayjs";
 
 interface Props {
   survey: Survey;
@@ -24,7 +25,13 @@ const SurveyForms = ({ survey }: Props) => {
     formState: { errors },
   } = useForm<Inputs>({
     resolver: zodResolver(SurveyFormDataSchema),
-    defaultValues: { ...survey },
+    defaultValues: {
+      ...survey,
+      student: {
+        ...survey.student,
+        birthdate: dayjs(survey.student.birthdate).format("MMMM D, YYYY"),
+      },
+    },
   });
 
   const processForm: SubmitHandler<Inputs> = async (data) => {
