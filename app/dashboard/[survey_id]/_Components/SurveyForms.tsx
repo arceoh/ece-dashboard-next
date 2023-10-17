@@ -1,13 +1,11 @@
 "use client";
 import { Survey, SurveyFormDataSchema } from "@/app/entities/Survey";
-import React from "react";
-import { useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import z from "zod";
-import { updateSurvey } from "../actions";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { SubmitHandler, useForm } from "react-hook-form";
+import z from "zod";
+import { updateSurvey } from "../actions";
 
 interface Props {
   survey: Survey;
@@ -16,7 +14,6 @@ interface Props {
 type Inputs = z.infer<typeof SurveyFormDataSchema>;
 
 const SurveyForms = ({ survey }: Props) => {
-  const [data, setData] = useState<Inputs>();
   const router = useRouter();
 
   const {
@@ -43,7 +40,8 @@ const SurveyForms = ({ survey }: Props) => {
       console.log(result.error);
       return;
     }
-    router.push("/dashboard");
+    // router.push("/dashboard");
+    router.back();
   };
 
   return (
