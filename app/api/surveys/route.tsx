@@ -33,6 +33,8 @@ export async function GET(req: NextApiRequest) {
   const url = new URL(req.url!);
 
   const queryParams = url.searchParams;
+  const currentPage = Number(queryParams.get("page")) || 1; // Current Page
+  const pageSize = Number(queryParams.get("pageSize")) || 5; // How many per page // TODO
 
   const cashAid = queryParams.get("cashAid") || false;
   const returning = queryParams.get("returning") || false;
@@ -69,6 +71,15 @@ export async function GET(req: NextApiRequest) {
 
   await dbConnect();
 
-  const surveys = await Survey.find({ ...searchFilters }).limit(5);
-  return NextResponse.json(surveys);
+  const count = await Survey.countDocuments({ ...searchFilters });
+
+  const surveys = await Survey.find({ ...searchFilters })
+    .limit(pageSize)
+    .skip(pageSize * (currentPage - 1));
+
+  return NextResponse.json({
+    surveys,
+    currentPage,
+    pageCount: Math.ceil(count / pageSize),
+  });
 }

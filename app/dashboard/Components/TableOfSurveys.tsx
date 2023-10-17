@@ -3,6 +3,7 @@ import { Survey } from "@/app/entities/Survey";
 import { headers } from "next/headers";
 import SurveyTableRow from "./SurveyTableRow";
 import TableHeader from "./TableHeader";
+import TablePagination from "./TablePagination";
 
 interface Props {
   searchParams?: { [key: string]: string | string[] | undefined };
@@ -29,17 +30,26 @@ const TableOfSurveys = async ({ searchParams }: Props) => {
   const data = await res.json();
 
   return (
-    <div className="overflow-x-auto my-4">
-      <table className="table table-zebra">
-        <TableHeader />
-        <tbody>
-          {data &&
-            data.map((item: Survey) => {
-              return <SurveyTableRow key={item._id} item={item} />;
-            })}
-        </tbody>
-      </table>
-    </div>
+    <>
+      <div className="overflow-x-auto my-4">
+        <table className="table table-zebra">
+          <TableHeader />
+          <tbody>
+            {data.surveys &&
+              data.surveys.map((item: Survey) => {
+                return <SurveyTableRow key={item._id} item={item} />;
+              })}
+          </tbody>
+        </table>
+      </div>
+      <div className="mt-8">
+        <TablePagination
+          pageCount={data.pageCount}
+          currentPage={data.currentPage}
+          searchParams={searchParams}
+        />
+      </div>
+    </>
   );
 };
 
