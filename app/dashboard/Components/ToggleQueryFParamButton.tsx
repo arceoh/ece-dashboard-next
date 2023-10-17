@@ -20,6 +20,12 @@ const ToggleQueryFParamButton = ({
     filters[filterSlug] = "true";
     active = false;
   }
+  if (filters.hasOwnProperty("page")) {
+    delete filters["page"];
+  }
+  if (filters.hasOwnProperty("pageSize")) {
+    delete filters["pageSize"];
+  }
 
   return (
     <Link
