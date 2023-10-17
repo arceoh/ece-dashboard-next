@@ -34,7 +34,7 @@ export async function GET(req: NextApiRequest) {
 
   const queryParams = url.searchParams;
   const currentPage = Number(queryParams.get("page")) || 1; // Current Page
-  const pageSize = Number(queryParams.get("pageSize")) || 5; // How many per page // TODO
+  const pageSize = Number(queryParams.get("pageSize")) || 5; // How many per page
 
   const cashAid = queryParams.get("cashAid") || false;
   const returning = queryParams.get("returning") || false;
@@ -46,9 +46,8 @@ export async function GET(req: NextApiRequest) {
   const enrolled = queryParams.get("enrolled") ? "Enrolled" : "";
   const denied = queryParams.get("denied") ? "Denied" : "";
 
-  const searchText = queryParams.get("search") || "";
-
-  const statusFilter = [newStudent, pending, enrolled, denied].filter(Boolean);
+  const searchText = queryParams.get("search") || ""; // Search Student or Guardian First and Last Name
+  const statusFilter = [newStudent, pending, enrolled, denied].filter(Boolean); // New, Pending, Enrolled, Denied
 
   const searchFilters = {
     ...(dli && { "guardian.dliInterest": true }), // If DLI in filters add filter
@@ -81,5 +80,6 @@ export async function GET(req: NextApiRequest) {
     surveys,
     currentPage,
     pageCount: Math.ceil(count / pageSize),
+    pageSize,
   });
 }
