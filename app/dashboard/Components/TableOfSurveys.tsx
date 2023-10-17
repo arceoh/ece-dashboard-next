@@ -45,7 +45,6 @@ const TableOfSurveys = async ({ searchParams }: Props) => {
       </div>
       <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 pt-4">
         <div className="mt-8 grid grid-cols-6 gap-4">
-          {/* <div className="mt-8 flex justify-center items-center"> */}
           <div className="col-start-2 col-span-2 items-center justify-center flex">
             <TablePagination
               pageCount={data.pageCount}
