@@ -2,6 +2,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 import UpdateCheckbox from "./UpdateCheckbox";
 import { NextResponse } from "next/server";
+import { headers } from "next/headers";
 
 const Schools = async () => {
   const session = await getServerSession(authOptions);
@@ -11,7 +12,11 @@ const Schools = async () => {
   }
 
   const response = await fetch(
-    `http://localhost:3000/api/users/${session.user._id}`
+    `http://localhost:3000/api/users/${session.user._id}`,
+    {
+      cache: "force-cache",
+      headers: headers(),
+    }
   );
   const data = await response.json();
   const schools = data.user.settings.mySchools;
