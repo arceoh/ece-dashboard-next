@@ -8,8 +8,10 @@ type Props = {
 
 const TablePagination = ({ searchParams, pageCount, currentPage }: Props) => {
   const pages = Array.from(Array(pageCount).keys());
-
   const filters = { ...searchParams };
+
+  if (pageCount === 1) return null;
+
   return (
     <div className="text-center">
       <div className="join">
@@ -18,7 +20,7 @@ const TablePagination = ({ searchParams, pageCount, currentPage }: Props) => {
             <Link
               key={page + 1}
               className={`${
-                currentPage === page + 1 ? "btn-active" : ""
+                currentPage === page + 1 ? "btn-active btn-disabled" : ""
               } join-item btn`}
               href={{
                 pathname: "/dashboard",
