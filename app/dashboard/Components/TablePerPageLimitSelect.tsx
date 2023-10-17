@@ -15,6 +15,13 @@ const TablePerPageLimitSelect = ({ searchParams }: Props) => {
 
   const filters = { ...searchParams };
 
+  if (filters.hasOwnProperty("page")) {
+    delete filters["page"];
+  }
+  if (filters.hasOwnProperty("pageSize")) {
+    delete filters["pageSize"];
+  }
+
   return (
     <div className="dropdown dropdown-top dropdown-end">
       <label tabIndex={0} className="btn btn-sm">
