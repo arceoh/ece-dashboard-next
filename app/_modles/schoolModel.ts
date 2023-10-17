@@ -1,13 +1,6 @@
 import mongoose from "mongoose";
 import { School } from "@/app/entities/School";
 
-// export interface ISchool extends mongoose.Document {
-//   aeriesID: string;
-//   name_full: string;
-//   name: string;
-//   active?: boolean; // Used for User model settings
-// }
-
 const schoolSchema = new mongoose.Schema({
   aeriesID: {
     type: String,

@@ -1,7 +1,9 @@
+"use server";
 import { Suspense } from "react";
 import SurveyForms from "./_Components/SurveyForms";
 import { Survey } from "@/app/entities/Survey";
 import Loading from "./loading";
+import { headers } from "next/headers";
 
 interface Props {
   params: { survey_id: string };
@@ -10,13 +12,17 @@ interface Props {
 const EditSurveyPage = async ({ params: { survey_id } }: Props) => {
   const response = await fetch(
     `http://localhost:3000/api/surveys/${survey_id}`,
-    { cache: "no-cache" }
+    {
+      headers: headers(),
+      cache: "no-cache",
+    }
   );
   const data = await response.json();
   const survey: Survey = data.survey;
 
   const res = await fetch("http://localhost:3000/api/schools", {
-    cache: "force-cache",
+    headers: headers(),
+    cache: "no-cache",
   });
   const schoolsList = await res.json();
 

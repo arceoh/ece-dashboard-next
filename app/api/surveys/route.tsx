@@ -12,7 +12,7 @@ export async function GET(req: NextApiRequest) {
   const session = await getServerSession(authOptions);
 
   if (!session) {
-    return NextResponse.redirect("/api/auth/signin");
+    return NextResponse.redirect("http://localhost:3000/");
   }
 
   await dbConnect();

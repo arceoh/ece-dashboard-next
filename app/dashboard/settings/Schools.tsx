@@ -1,12 +1,13 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 import UpdateCheckbox from "./UpdateCheckbox";
+import { NextResponse } from "next/server";
 
 const Schools = async () => {
   const session = await getServerSession(authOptions);
 
   if (!session) {
-    return <div>You are not authenticated.</div>;
+    return NextResponse.redirect("http://localhost:3000/");
   }
 
   const response = await fetch(

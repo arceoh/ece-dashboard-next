@@ -7,7 +7,6 @@ import { MdOutlineClear } from "react-icons/md";
 const SearchInput = () => {
   const searchParams = useSearchParams();
   const search = searchParams.get("search") || "";
-  console.log("SEARCH", search);
   const router = useRouter();
 
   const [data, setData] = useState<string>(search || "");
