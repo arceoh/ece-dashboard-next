@@ -1,10 +1,9 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
-import { User } from "@/app/_modles/userModel";
 import { School } from "@/app/_modles/schoolModel";
+import { User } from "@/app/_modles/userModel";
 import { dbConnect } from "@/app/db/dbConnect";
 import camelCaseString from "@/utils/camelCaseString";
-import { School as ISchool } from "@/app/entities/School";
+import NextAuth, { NextAuthOptions } from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions: NextAuthOptions = {
   providers: [
