@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import userSettings from "../api/users/_data/userSettings";
+import { userSettings } from "../api/users/_data/userSettings"; // TODO: replace with real user settings from db
 
 interface Column {
   title: string;

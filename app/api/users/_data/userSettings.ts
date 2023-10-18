@@ -77,7 +77,7 @@ const schools = [
   { aeriesID: 27, name_full: "Westmont Elementary School", name: "Westmont" },
 ];
 
-export default {
+const userSettings = {
   mySchools: schools,
   theme: "dark",
   columns: [
@@ -96,3 +96,4 @@ export default {
     { title: "Returning Student", value: true },
   ],
 };
+export { userSettings };

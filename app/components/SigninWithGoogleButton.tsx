@@ -1,4 +1,6 @@
 import { useSession, signIn } from "next-auth/react";
+import Image from "next/image";
+import GoogleColor from "@/public/google-color.svg";
 
 const SigninWithGoogleButton = () => {
   const { data: session, status } = useSession();
@@ -34,12 +36,7 @@ const SigninWithGoogleButton = () => {
         </div>
       )}
       {status != "loading" && (
-        <img
-          className="w-6 h-6"
-          src="https://www.svgrepo.com/show/475656/google-color.svg"
-          loading="lazy"
-          alt="google logo"
-        />
+        <Image src="/images/google-color.svg" width={24} height={24} alt="" />
       )}
       <span className="pl-1 pr-3 rounded-r-sm"> Sign In with Google</span>
     </button>
