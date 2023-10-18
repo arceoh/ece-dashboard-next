@@ -22,8 +22,7 @@ export async function GET(req: NextRequest) {
   const activeSchools: string[] = [];
 
   if (user!.settings.mySchools !== undefined) {
-    for (const key of Object.keys(user!.settings.mySchools)) {
-      const value = user!.settings.mySchools[key];
+    for (const [key, value] of user!.settings.mySchools.entries()) {
       if (value.active) {
         activeSchools.push(value.name);
       }

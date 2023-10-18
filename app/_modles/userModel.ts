@@ -40,7 +40,7 @@ const UserSchema = new mongoose.Schema<User>(
       mySchools: {
         type: Map,
         of: userSchoolsSchema,
-        default: {},
+        default: new Map(),
       },
       columns: {
         type: [columnsSchema],

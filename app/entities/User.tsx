@@ -8,7 +8,7 @@ export const UserSchema = z.object({
   email: z.string(),
   picture: z.string().optional(),
   settings: z.object({
-    mySchools: z.record(SchoolDataSchema),
+    mySchools: z.map(z.string(), SchoolDataSchema),
     theme: z.enum(["dark", "light"]).optional(),
     columns: z
       .array(

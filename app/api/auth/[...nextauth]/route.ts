@@ -3,7 +3,8 @@ import GoogleProvider from "next-auth/providers/google";
 import { User } from "@/app/_modles/userModel";
 import { School } from "@/app/_modles/schoolModel";
 import { dbConnect } from "@/app/db/dbConnect";
-import camelize from "@/utils/camelCaseString";
+import camelCaseString from "@/utils/camelCaseString";
+import { School as ISchool } from "@/app/entities/School";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -32,6 +33,7 @@ export const authOptions: NextAuthOptions = {
       } else {
         // Create new User
         //Get all schools from DB to add as defaults
+
         const schools = await School.find({});
 
         try {
@@ -46,7 +48,7 @@ export const authOptions: NextAuthOptions = {
 
           // Loop through the 'schools' array and add each school to the mySchools key
           for (const school of schools) {
-            const schoolName = camelize(school.name);
+            const schoolName = camelCaseString(school.name);
             newUser.settings.mySchools.set(schoolName, school);
           }
 
