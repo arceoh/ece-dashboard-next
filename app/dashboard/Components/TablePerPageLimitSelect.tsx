@@ -34,7 +34,7 @@ const TablePerPageLimitSelect = ({ searchParams }: Props) => {
       >
         {pageSizeOptions.map((option) => {
           return (
-            <li className="">
+            <li key={option} className="">
               <Link
                 key={option}
                 className={`${

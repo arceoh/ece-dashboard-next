@@ -15,7 +15,7 @@ const Schools = ({ schools }: Props) => {
   return (
     <div className="sm:grid sm:grid-cols-2 sm:gap-x-28 lg:grid-cols-3">
       {schoolsArray.map((school) => {
-        return <UpdateCheckbox school={school} />;
+        return <UpdateCheckbox key={school._id} school={school} />;
       })}
     </div>
   );

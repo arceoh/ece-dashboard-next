@@ -3,6 +3,7 @@ import TableHeader from "./Components/TableHeader";
 import TableRowSkeleton from "./Components/TableRowSkeleton";
 import { MdFilterAlt, MdOutlineClear } from "react-icons/md";
 import { AiFillCaretDown } from "react-icons/ai";
+import camelCaseString from "@/utils/camelCaseString";
 
 const DashboardLoadingPage = () => {
   const count = 5;
@@ -22,7 +23,11 @@ const DashboardLoadingPage = () => {
                 <MdFilterAlt /> Filter
               </div>
               {filtersList.map((filter) => {
-                return <div className={`btn btn-xs`}>{filter}</div>;
+                return (
+                  <div key={camelCaseString(filter)} className={`btn btn-xs`}>
+                    {filter}
+                  </div>
+                );
               })}
             </div>
             <div className="btn-group btn-group-vertical lg:btn-group-horizontal animate-pulse">
@@ -30,7 +35,11 @@ const DashboardLoadingPage = () => {
                 <MdFilterAlt /> Filter
               </div>
               {statusList.map((status) => {
-                return <div className={`btn btn-xs`}>{status}</div>;
+                return (
+                  <div key={camelCaseString(status)} className={`btn btn-xs`}>
+                    {status}
+                  </div>
+                );
               })}
             </div>
           </div>

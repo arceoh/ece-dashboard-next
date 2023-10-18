@@ -87,6 +87,7 @@ const DashboardHome = async ({ searchParams }: Props) => {
               {filtersList.map((filter) => {
                 return (
                   <ToggleQueryFParamButton
+                    key={camelCaseString(filter)}
                     filterSlug={camelCaseString(filter)}
                     title={filter}
                     searchParams={searchParams}
@@ -102,6 +103,7 @@ const DashboardHome = async ({ searchParams }: Props) => {
               {statusList.map((status) => {
                 return (
                   <ToggleQueryFParamButton
+                    key={camelCaseString(status)}
                     filterSlug={camelCaseString(status)}
                     title={status}
                     searchParams={searchParams}
