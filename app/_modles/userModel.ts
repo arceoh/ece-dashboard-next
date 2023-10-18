@@ -1,25 +1,5 @@
 import mongoose from "mongoose";
 import { User } from "@/app/entities/User";
-// interface IUserSchool {
-//   active: boolean;
-// }
-
-// interface IColumn {
-//   title: string;
-//   value: boolean;
-// }
-
-// interface IUser extends mongoose.Document {
-//   name: string;
-//   email: string;
-//   settings: {
-//     theme: string;
-//     mySchools: Map<string, IUserSchool>;
-//     columns: IColumn[];
-//   };
-//   password?: string;
-//   picture?: string;
-// }
 
 const schoolsSchema = new mongoose.Schema({
   id: Number,
