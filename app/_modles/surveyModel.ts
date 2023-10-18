@@ -70,6 +70,7 @@ const surveySchema = new mongoose.Schema(
 );
 
 const Survey =
-  mongoose.models.Survey || mongoose.model<Survey>("Survey", surveySchema);
+  mongoose.models.Survey<Survey> ||
+  mongoose.model<Survey>("Survey", surveySchema);
 
 export { Survey };

@@ -1,6 +1,6 @@
 import { Survey } from "@/app/_modles/surveyModel";
 import { dbConnect } from "@/app/db/dbConnect";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { User } from "../../_modles/userModel";
 
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
@@ -8,7 +8,7 @@ import type { NextApiRequest } from "next";
 
 import { getServerSession } from "next-auth/next";
 
-export async function GET(req: NextApiRequest) {
+export async function GET(req: NextRequest) {
   const session = await getServerSession(authOptions);
 
   if (!session) {
@@ -22,7 +22,8 @@ export async function GET(req: NextApiRequest) {
   const activeSchools: string[] = [];
 
   if (user!.settings.mySchools !== undefined) {
-    for (const [key, value] of Object.entries(user!.settings.mySchools)) {
+    for (const key of Object.keys(user!.settings.mySchools)) {
+      const value = user!.settings.mySchools[key];
       if (value.active) {
         activeSchools.push(value.name);
       }
@@ -69,9 +70,9 @@ export async function GET(req: NextApiRequest) {
 
   await dbConnect();
 
-  const count = await Survey.countDocuments({ ...searchFilters });
+  const count: number = await Survey.countDocuments({ ...searchFilters });
 
-  const surveys = await Survey.find({ ...searchFilters })
+  const surveys: Survey[] = await Survey.find({ ...searchFilters })
     .limit(pageSize)
     .skip(pageSize * (currentPage - 1));
 
