@@ -1,6 +1,11 @@
 "use server";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { School } from "@/app/entities/School";
 import { Survey } from "@/app/entities/Survey";
+import { getServerSession } from "next-auth/next";
 import { headers } from "next/headers";
+import { NextResponse } from "next/server";
+import ErrorNoSchoolsFound from "./ErrorNoSchoolsFound";
 import SurveyTableRow from "./SurveyTableRow";
 import TableHeader from "./TableHeader";
 import TablePagination from "./TablePagination";
@@ -11,6 +16,12 @@ interface Props {
 }
 
 const TableOfSurveys = async ({ searchParams }: Props) => {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    return NextResponse.redirect("http://localhost:3000/");
+  }
+
   const baseUrl = "http://localhost:3000/api/surveys";
 
   let queryString: string = "";
@@ -29,6 +40,25 @@ const TableOfSurveys = async ({ searchParams }: Props) => {
     cache: "no-cache",
   });
   const data = await res.json();
+
+  const response = await fetch(
+    `http://localhost:3000/api/users/${session.user._id}`,
+    {
+      headers: headers(),
+    }
+  );
+  const userData = await response.json();
+  const schoolsList: School[] = userData.user.settings.mySchools;
+
+  const schoolsArray = Object.values(schoolsList);
+
+  const hasActiveSchools = schoolsArray.some(
+    (school) => school.active === true
+  );
+
+  if (!hasActiveSchools) {
+    return <ErrorNoSchoolsFound />;
+  }
 
   return (
     <>

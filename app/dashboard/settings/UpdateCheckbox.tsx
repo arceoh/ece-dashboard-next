@@ -5,18 +5,10 @@ import { useRouter } from "next/navigation";
 import { experimental_useOptimistic as useOptimistic } from "react";
 import camelCaseString from "@/utils/camelCaseString";
 import { updateSchool } from "./actions";
+import { School } from "@/app/entities/School";
 
 interface Props {
-  school: {
-    name: string;
-    _id: string;
-    active: boolean;
-  };
-}
-interface School {
-  name: string;
-  _id: string;
-  active: boolean;
+  school: School;
 }
 
 export default function UpdateCheckbox({ school }: Props) {

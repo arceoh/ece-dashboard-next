@@ -2,15 +2,10 @@
 import { User } from "@/app/_modles/userModel";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { dbConnect } from "@/app/db/dbConnect";
+import { School } from "@/app/entities/School";
 import camelCaseString from "@/utils/camelCaseString";
 import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
-
-interface School {
-  name: string;
-  _id: string;
-  active: boolean;
-}
 
 export async function updateSchool(school: School) {
   const session = await getServerSession(authOptions);

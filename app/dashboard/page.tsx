@@ -4,6 +4,7 @@ import FilterResetQueryParamsButton from "./Components/FilterResetQueryParamsBut
 import SearchInput from "./Components/SearchInput";
 import TableOfSurveys from "./Components/TableOfSurveys";
 import ToggleQueryFParamButton from "./Components/ToggleQueryFParamButton";
+import Container from "@/app/components/Container";
 
 const filtersList = ["Cash Aid", "IEP", "DLI", "Returning"];
 const statusList = ["New", "Pending", "Enrolled", "Denied"];
@@ -15,7 +16,7 @@ const DashboardHome = ({
 }) => {
   return (
     <>
-      <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 pt-4">
+      <Container>
         <h1>Dashboard</h1>
         <div className="filters flex justify-between items-center">
           <div className="space-x-4 flex">
@@ -57,7 +58,7 @@ const DashboardHome = ({
             <SearchInput />
           </div>
         </div>
-      </div>
+      </Container>
       <div>
         <TableOfSurveys searchParams={searchParams} />
       </div>

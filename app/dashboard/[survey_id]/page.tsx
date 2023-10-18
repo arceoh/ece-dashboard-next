@@ -22,7 +22,7 @@ const EditSurveyPage = async ({ params: { survey_id } }: Props) => {
 
   const res = await fetch("http://localhost:3000/api/schools", {
     headers: headers(),
-    cache: "no-cache",
+    cache: "force-cache",
   });
   const schoolsList = await res.json();
 
