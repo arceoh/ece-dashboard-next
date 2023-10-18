@@ -6,7 +6,6 @@ const SigninWithGoogleButton = () => {
   const { data: session, status } = useSession();
 
   const handleSignInWithGoogle = async () => {
-    // Initiate the Google OAuth flow with Next Auth when the button is clicked
     await signIn("google");
   };
   return (
