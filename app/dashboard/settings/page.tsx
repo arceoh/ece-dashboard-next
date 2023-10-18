@@ -15,11 +15,11 @@ const SettingsPage = async () => {
   const session = await getServerSession(authOptions);
 
   if (!session) {
-    return NextResponse.redirect("http://localhost:3000/");
+    return NextResponse.redirect(process.env.NEXT_PUBLIC_BASE_URL!);
   }
 
   const response = await fetch(
-    `http://localhost:3000/api/users/${session.user._id}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL!}/api/users/${session.user._id}`,
     {
       cache: "reload",
       headers: headers(),

@@ -4,7 +4,9 @@ import useSWR from "swr";
 import SurveyTableRow from "./SurveyTableRow";
 
 const fetcher = () =>
-  fetch(`http://localhost:3000/api/surveys`).then((res) => res.json());
+  fetch(`${process.env.NEXT_PUBLIC_BASE_URL!}/api/surveys`).then((res) =>
+    res.json()
+  );
 
 const TableBody = () => {
   const { data: surveys, error } = useSWR("/api/surveys", fetcher);

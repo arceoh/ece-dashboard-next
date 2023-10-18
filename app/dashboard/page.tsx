@@ -29,7 +29,7 @@ interface Data {
 const DashboardHome = async ({ searchParams }: Props) => {
   const session = await getServerSession(authOptions);
 
-  const baseUrl = "http://localhost:3000/api/surveys";
+  const baseUrl = `${process.env.NEXT_PUBLIC_BASE_URL!}/api/surveys`;
 
   let queryString: string = "";
   if (searchParams) {
@@ -49,7 +49,7 @@ const DashboardHome = async ({ searchParams }: Props) => {
   const data: Data = await res.json();
 
   const response = await fetch(
-    `http://localhost:3000/api/users/${session!.user._id}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL!}/api/users/${session!.user._id}`,
     {
       headers: headers(),
       cache: "no-cache",

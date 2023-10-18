@@ -11,7 +11,7 @@ interface Props {
 
 const EditSurveyPage = async ({ params: { survey_id } }: Props) => {
   const response = await fetch(
-    `http://localhost:3000/api/surveys/${survey_id}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL!}/api/surveys/${survey_id}`,
     {
       headers: headers(),
       cache: "no-store",
@@ -20,7 +20,7 @@ const EditSurveyPage = async ({ params: { survey_id } }: Props) => {
   const data = await response.json();
   const survey: Survey = data.survey;
 
-  const res = await fetch("http://localhost:3000/api/schools", {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL!}/api/schools`, {
     headers: headers(),
     cache: "default",
   });

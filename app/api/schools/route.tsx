@@ -8,7 +8,7 @@ import { authOptions } from "../auth/[...nextauth]/route";
 export async function GET(request: NextRequest) {
   const session = await getServerSession(authOptions);
   if (!session) {
-    return NextResponse.redirect("http://localhost:3000/");
+    return NextResponse.redirect(process.env.NEXT_PUBLIC_BASE_URL!);
   }
 
   await dbConnect();

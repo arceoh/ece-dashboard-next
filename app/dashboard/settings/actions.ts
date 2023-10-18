@@ -34,8 +34,7 @@ export async function updateSchool(school: School) {
       error
     );
   }
-  // await NextResponse.rewrite("http://localhost:3000/dashboard/settings");
-  revalidatePath("http://localhost:3000/dashboard/settings");
+  revalidatePath(`${process.env.NEXT_PUBLIC_BASE_URL!}/dashboard/settings`);
 }
 
 export async function toggleAllSchools(schools: School[]) {
