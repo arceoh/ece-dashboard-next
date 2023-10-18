@@ -1,5 +1,4 @@
 "use client";
-
 import { experimental_useFormStatus as useFormStatus } from "react-dom";
 import { useRouter } from "next/navigation";
 import { experimental_useOptimistic as useOptimistic } from "react";
@@ -38,7 +37,7 @@ export default function UpdateCheckbox({ school }: Props) {
           onChange={async () => {
             addOptimisticSchool(!school.active);
             await updateSchool(school);
-            router.refresh(); // updates client-side cache
+            router.refresh();
           }}
           disabled={pending}
           className="checkbox checkbox-accent"

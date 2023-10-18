@@ -9,8 +9,6 @@ import { revalidatePath } from "next/cache";
 
 export async function updateSchool(school: School) {
   const session = await getServerSession(authOptions);
-
-  const userId = session!.user._id;
   const schoolKey = camelCaseString(school.name);
 
   await dbConnect();
@@ -18,13 +16,26 @@ export async function updateSchool(school: School) {
 
   if (!user) return;
 
-  await user.settings.mySchools.set(schoolKey, {
-    ...school,
-    active: !school.active,
-  });
-  await user.save();
+  try {
+    const schoolToUpdate = user.settings.mySchools.get(schoolKey);
+    if (schoolToUpdate) {
+      schoolToUpdate.active = !schoolToUpdate.active;
+      await user.save();
 
-  revalidatePath("/dashboard/settings");
+      console.log("User -> Settings -> mySchools: Updated Successfully.");
+    } else {
+      console.error(
+        "School not found when updating: User -> Settings -> mySchools "
+      );
+    }
+  } catch (error) {
+    console.error(
+      "An error occurred when updating: User -> Settings -> mySchools \n Error: \n",
+      error
+    );
+  }
+  // await NextResponse.rewrite("http://localhost:3000/dashboard/settings");
+  revalidatePath("http://localhost:3000/dashboard/settings");
 }
 
 export async function toggleAllSchools(schools: School[]) {

@@ -1,8 +1,12 @@
 import { School } from "@/app/entities/School";
 import UpdateCheckbox from "./UpdateCheckbox";
 
+type SchoolData = {
+  [key: string]: School;
+};
+
 interface Props {
-  schools: School[];
+  schools: SchoolData;
 }
 
 const Schools = ({ schools }: Props) => {

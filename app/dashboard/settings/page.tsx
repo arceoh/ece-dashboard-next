@@ -5,6 +5,11 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { NextResponse } from "next/server";
 import { headers } from "next/headers";
+import { School } from "@/app/entities/School";
+
+type SchoolData = {
+  [key: string]: School;
+};
 
 const SettingsPage = async () => {
   const session = await getServerSession(authOptions);
@@ -16,12 +21,12 @@ const SettingsPage = async () => {
   const response = await fetch(
     `http://localhost:3000/api/users/${session.user._id}`,
     {
-      cache: "force-cache",
+      cache: "reload",
       headers: headers(),
     }
   );
   const data = await response.json();
-  const schools = data.user.settings.mySchools;
+  const schools: SchoolData = data.user.settings.mySchools;
 
   return (
     <Suspense fallback={<Loading />}>

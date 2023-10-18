@@ -1,8 +1,8 @@
-import z from "zod";
+import z, { number } from "zod";
 
 export const SchoolDataSchema = z.object({
   _id: z.string(),
-  aeriesID: z.string().optional(),
+  aeriesID: z.string().or(number()).optional(),
   name_full: z.string(),
   name: z.enum([
     "AEOA",
