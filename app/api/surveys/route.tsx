@@ -22,9 +22,10 @@ export async function GET(req: NextApiRequest) {
   const activeSchools: string[] = [];
 
   if (user!.settings.mySchools !== undefined) {
-    for (const [key, value] of user!.settings!.mySchools!.entries()) {
+    console.log(user);
+
+    for (const [key, value] of Object.entries(user!.settings.mySchools)) {
       if (value.active) {
-        // @ts-ignore
         activeSchools.push(value.name);
       }
     }

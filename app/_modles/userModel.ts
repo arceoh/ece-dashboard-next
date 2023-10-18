@@ -1,25 +1,25 @@
 import mongoose from "mongoose";
+import { User } from "@/app/entities/User";
+// interface IUserSchool {
+//   active: boolean;
+// }
 
-interface IUserSchool {
-  active: boolean;
-}
+// interface IColumn {
+//   title: string;
+//   value: boolean;
+// }
 
-interface IColumn {
-  title: string;
-  value: boolean;
-}
-
-interface IUser extends mongoose.Document {
-  name: string;
-  email: string;
-  settings: {
-    theme: string;
-    mySchools: Map<string, IUserSchool>;
-    columns: IColumn[];
-  };
-  password?: string;
-  picture?: string;
-}
+// interface IUser extends mongoose.Document {
+//   name: string;
+//   email: string;
+//   settings: {
+//     theme: string;
+//     mySchools: Map<string, IUserSchool>;
+//     columns: IColumn[];
+//   };
+//   password?: string;
+//   picture?: string;
+// }
 
 const schoolsSchema = new mongoose.Schema({
   id: Number,
@@ -38,7 +38,7 @@ const columnsSchema = new mongoose.Schema({
   value: Boolean,
 });
 
-const UserSchema = new mongoose.Schema<IUser>(
+const UserSchema = new mongoose.Schema<User>(
   {
     name: {
       type: String,
@@ -73,7 +73,7 @@ const UserSchema = new mongoose.Schema<IUser>(
   }
 );
 
-const User: mongoose.Model<IUser> =
-  mongoose.models.User || mongoose.model<IUser>("User", UserSchema);
+const User: mongoose.Model<User> =
+  mongoose.models.User || mongoose.model<User>("User", UserSchema);
 
 export { User };
