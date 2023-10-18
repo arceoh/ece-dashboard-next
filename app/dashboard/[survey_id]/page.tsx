@@ -4,23 +4,21 @@ import SurveyForms from "./_Components/SurveyForms";
 import { Survey } from "@/app/entities/Survey";
 import Loading from "./loading";
 import { headers } from "next/headers";
+import { BASE_URL } from "@/app/config";
 
 interface Props {
   params: { survey_id: string };
 }
 
 const EditSurveyPage = async ({ params: { survey_id } }: Props) => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL!}/api/surveys/${survey_id}`,
-    {
-      headers: headers(),
-      cache: "no-store",
-    }
-  );
+  const response = await fetch(`${BASE_URL}/api/surveys/${survey_id}`, {
+    headers: headers(),
+    cache: "no-store",
+  });
   const data = await response.json();
   const survey: Survey = data.survey;
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL!}/api/schools`, {
+  const res = await fetch(`${BASE_URL}/api/schools`, {
     headers: headers(),
     cache: "default",
   });

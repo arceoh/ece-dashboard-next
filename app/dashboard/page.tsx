@@ -11,6 +11,7 @@ import FilterResetQueryParamsButton from "./Components/FilterResetQueryParamsBut
 import SearchInput from "./Components/SearchInput";
 import TableOfSurveys from "./Components/TableOfSurveys";
 import ToggleQueryFParamButton from "./Components/ToggleQueryFParamButton";
+import { BASE_URL } from "../config";
 
 const filtersList = ["Cash Aid", "IEP", "DLI", "Returning"];
 const statusList = ["New", "Pending", "Enrolled", "Denied"];
@@ -29,7 +30,7 @@ interface Data {
 const DashboardHome = async ({ searchParams }: Props) => {
   const session = await getServerSession(authOptions);
 
-  const baseUrl = `${process.env.NEXT_PUBLIC_BASE_URL!}/api/surveys`;
+  const baseUrl = `${BASE_URL}/api/surveys`;
 
   let queryString: string = "";
   if (searchParams) {
@@ -48,13 +49,10 @@ const DashboardHome = async ({ searchParams }: Props) => {
   });
   const data: Data = await res.json();
 
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL!}/api/users/${session!.user._id}`,
-    {
-      headers: headers(),
-      cache: "no-cache",
-    }
-  );
+  const response = await fetch(`${BASE_URL}/api/users/${session!.user._id}`, {
+    headers: headers(),
+    cache: "no-cache",
+  });
   const userData = await response.json();
   const schoolsList: School[] = userData.user.settings.mySchools;
 

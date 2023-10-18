@@ -2,11 +2,10 @@
 import { Survey } from "@/app/entities/Survey";
 import useSWR from "swr";
 import SurveyTableRow from "./SurveyTableRow";
+import { BASE_URL } from "@/app/config";
 
 const fetcher = () =>
-  fetch(`${process.env.NEXT_PUBLIC_BASE_URL!}/api/surveys`).then((res) =>
-    res.json()
-  );
+  fetch(`${BASE_URL}/api/surveys`).then((res) => res.json());
 
 const TableBody = () => {
   const { data: surveys, error } = useSWR("/api/surveys", fetcher);

@@ -1,6 +1,7 @@
 "use server";
 import { User } from "@/app/_modles/userModel";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { BASE_URL } from "@/app/config";
 import { dbConnect } from "@/app/db/dbConnect";
 import { School } from "@/app/entities/School";
 import camelCaseString from "@/utils/camelCaseString";
@@ -34,7 +35,7 @@ export async function updateSchool(school: School) {
       error
     );
   }
-  revalidatePath(`${process.env.NEXT_PUBLIC_BASE_URL!}/dashboard/settings`);
+  revalidatePath(`${BASE_URL}/dashboard/settings`);
 }
 
 export async function toggleAllSchools(schools: School[]) {

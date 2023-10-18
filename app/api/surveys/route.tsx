@@ -4,15 +4,15 @@ import { NextRequest, NextResponse } from "next/server";
 import { User } from "../../_modles/userModel";
 
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import type { NextApiRequest } from "next";
 
+import { BASE_URL } from "@/app/config";
 import { getServerSession } from "next-auth/next";
 
 export async function GET(req: NextRequest) {
   const session = await getServerSession(authOptions);
 
   if (!session) {
-    return NextResponse.redirect(process.env.NEXT_PUBLIC_BASE_URL!);
+    return NextResponse.redirect(BASE_URL);
   }
 
   await dbConnect();

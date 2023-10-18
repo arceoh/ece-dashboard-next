@@ -6,6 +6,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { NextResponse } from "next/server";
 import { headers } from "next/headers";
 import { School } from "@/app/entities/School";
+import { BASE_URL } from "@/app/config";
 
 type SchoolData = {
   [key: string]: School;
@@ -15,16 +16,13 @@ const SettingsPage = async () => {
   const session = await getServerSession(authOptions);
 
   if (!session) {
-    return NextResponse.redirect(process.env.NEXT_PUBLIC_BASE_URL!);
+    return NextResponse.redirect(BASE_URL);
   }
 
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL!}/api/users/${session.user._id}`,
-    {
-      cache: "reload",
-      headers: headers(),
-    }
-  );
+  const response = await fetch(`${BASE_URL}/api/users/${session.user._id}`, {
+    cache: "reload",
+    headers: headers(),
+  });
   const data = await response.json();
   const schools: SchoolData = data.user.settings.mySchools;
 
