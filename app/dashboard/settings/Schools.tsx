@@ -6,7 +6,6 @@ interface Props {
 }
 
 const Schools = ({ schools }: Props) => {
-  console.log(schools);
   const schoolsArray = Object.values(schools);
 
   return (

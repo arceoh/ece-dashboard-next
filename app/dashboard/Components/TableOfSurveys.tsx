@@ -1,11 +1,5 @@
 "use server";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { School } from "@/app/entities/School";
 import { Survey } from "@/app/entities/Survey";
-import { getServerSession } from "next-auth/next";
-import { headers } from "next/headers";
-import { NextResponse } from "next/server";
-import ErrorNoSchoolsFound from "./ErrorNoSchoolsFound";
 import SurveyTableRow from "./SurveyTableRow";
 import TableHeader from "./TableHeader";
 import TablePagination from "./TablePagination";
@@ -13,52 +7,16 @@ import TablePerPageLimitSelect from "./TablePerPageLimitSelect";
 
 interface Props {
   searchParams?: { [key: string]: string | string[] | undefined };
+  data: {
+    surveys: Survey | Survey[];
+    pageCount: number;
+    currentPage: number;
+    pageSize: number;
+  };
 }
 
-const TableOfSurveys = async ({ searchParams }: Props) => {
-  const session = await getServerSession(authOptions);
-
-  if (!session) {
-    return NextResponse.redirect("http://localhost:3000/");
-  }
-
-  const baseUrl = "http://localhost:3000/api/surveys";
-
-  let queryString: string = "";
-  if (searchParams) {
-    queryString = Object.keys(searchParams)
-      .map((key) => `${key}=${searchParams[key]}`)
-      .join("&");
-  }
-
-  const urlWithParams: string =
-    queryString.length > 0 ? `${baseUrl}?${queryString}` : baseUrl;
-
-  const res = await fetch(urlWithParams, {
-    method: "GET",
-    headers: headers(),
-    cache: "no-cache",
-  });
-  const data = await res.json();
-
-  const response = await fetch(
-    `http://localhost:3000/api/users/${session.user._id}`,
-    {
-      headers: headers(),
-    }
-  );
-  const userData = await response.json();
-  const schoolsList: School[] = userData.user.settings.mySchools;
-
-  const schoolsArray = Object.values(schoolsList);
-
-  const hasActiveSchools = schoolsArray.some(
-    (school) => school.active === true
-  );
-
-  if (!hasActiveSchools) {
-    return <ErrorNoSchoolsFound />;
-  }
+const TableOfSurveys = ({ searchParams, data }: Props) => {
+  const surveys: Survey | Survey[] = Object.values(data.surveys);
 
   return (
     <>
@@ -66,9 +24,9 @@ const TableOfSurveys = async ({ searchParams }: Props) => {
         <table className="table table-zebra">
           <TableHeader />
           <tbody>
-            {data.surveys &&
-              data.surveys.map((item: Survey) => {
-                return <SurveyTableRow key={item._id} item={item} />;
+            {surveys &&
+              surveys.map((survey: Survey) => {
+                return <SurveyTableRow key={survey._id} item={survey} />;
               })}
           </tbody>
         </table>
