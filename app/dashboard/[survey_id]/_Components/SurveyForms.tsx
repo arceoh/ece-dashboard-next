@@ -16,7 +16,7 @@ interface Props {
 
 type Inputs = z.infer<typeof SurveyFormDataSchema>;
 
-const SurveyForms = async ({ survey, schoolsList }: Props) => {
+const SurveyForms = ({ survey, schoolsList }: Props) => {
   const sortedSchool = schoolsList.toSorted((a, b) => {
     return a.name.localeCompare(b.name);
   });
