@@ -22,8 +22,6 @@ export async function GET(req: NextApiRequest) {
   const activeSchools: string[] = [];
 
   if (user!.settings.mySchools !== undefined) {
-    console.log(user);
-
     for (const [key, value] of Object.entries(user!.settings.mySchools)) {
       if (value.active) {
         activeSchools.push(value.name);
