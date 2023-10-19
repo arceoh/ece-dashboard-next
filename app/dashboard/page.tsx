@@ -29,6 +29,7 @@ interface Data {
 
 const DashboardHome = async ({ searchParams }: Props) => {
   const session = await getServerSession(authOptions);
+  const headersInstance = headers();
 
   const baseUrl = `${BASE_URL}/api/surveys`;
 
@@ -44,13 +45,13 @@ const DashboardHome = async ({ searchParams }: Props) => {
 
   const res = await fetch(urlWithParams, {
     method: "GET",
-    headers: headers(),
+    headers: headersInstance,
     cache: "no-cache",
   });
   const data: Data = await res.json();
 
   const response = await fetch(`${BASE_URL}/api/users/${session!.user._id}`, {
-    headers: headers(),
+    headers: headersInstance,
     cache: "no-cache",
   });
   const userData = await response.json();

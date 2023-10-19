@@ -11,15 +11,17 @@ interface Props {
 }
 
 const EditSurveyPage = async ({ params: { survey_id } }: Props) => {
+  const headersInstance = headers();
+
   const response = await fetch(`${BASE_URL}/api/surveys/${survey_id}`, {
-    headers: headers(),
+    headers: headersInstance,
     cache: "no-store",
   });
   const data = await response.json();
   const survey: Survey = data.survey;
 
   const res = await fetch(`${BASE_URL}/api/schools`, {
-    headers: headers(),
+    headers: headersInstance,
     cache: "default",
   });
   const schoolsList = await res.json();

@@ -14,14 +14,15 @@ type SchoolData = {
 
 const SettingsPage = async () => {
   const session = await getServerSession(authOptions);
-
   if (!session) {
     return NextResponse.redirect(BASE_URL);
   }
 
+  const headersInstance = headers();
+
   const response = await fetch(`${BASE_URL}/api/users/${session.user._id}`, {
     cache: "reload",
-    headers: headers(),
+    headers: headersInstance,
   });
   const data = await response.json();
   const schools: SchoolData = data.user.settings.mySchools;
