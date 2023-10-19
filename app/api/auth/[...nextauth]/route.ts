@@ -55,6 +55,7 @@ export const authOptions: NextAuthOptions = {
         }
       }
     },
+    // Session Callback https://next-auth.js.org/configuration/callbacks#session-callback
     // Add User _id to session
     session: async ({ session }) => {
       if (session?.user) {
@@ -63,6 +64,8 @@ export const authOptions: NextAuthOptions = {
           const user = await User.findOne({ email: session.user.email });
           if (user) {
             session.user._id = user._id.toString();
+          } else {
+            console.error("User not found in DB to append session.user._id");
           }
         } catch (error) {
           console.error(
@@ -75,6 +78,21 @@ export const authOptions: NextAuthOptions = {
     },
   },
 };
+
+declare global {
+  namespace NodeJS {
+    export interface ProcessEnv {
+      NEXTAUTH_SECRET: string;
+
+      GOOGLE_CLIENT_ID: string;
+      GOOGLE_CLIENT_SECRET: string;
+
+      MONGODB_URI: string;
+      MONGODB_URI_DEV: string;
+      NEXT_PUBLIC_API_URL: string;
+    }
+  }
+}
 
 const handler = NextAuth(authOptions);
 
