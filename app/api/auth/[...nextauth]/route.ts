@@ -13,15 +13,9 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
-      if (!user) {
-        console.log("No user found");
-        return false;
-      }
+    async signIn({ user, email }) {
       const userEmail = user.email || email;
-      if (!userEmail) {
-        return false;
-      }
+      if (!user || !userEmail) return false;
 
       await dbConnect();
 
