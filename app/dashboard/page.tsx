@@ -28,54 +28,54 @@ interface Data {
 }
 
 const DashboardHome = async ({ searchParams }: Props) => {
-  const session = await getServerSession(authOptions);
+  // const session = await getServerSession(authOptions);
 
-  const baseUrl = `${BASE_URL}/api/surveys`;
+  // const baseUrl = `${BASE_URL}/api/surveys`;
 
-  let queryString: string = "";
-  if (searchParams) {
-    queryString = Object.keys(searchParams)
-      .map((key) => `${key}=${searchParams[key]}`)
-      .join("&");
-  }
+  // let queryString: string = "";
+  // if (searchParams) {
+  //   queryString = Object.keys(searchParams)
+  //     .map((key) => `${key}=${searchParams[key]}`)
+  //     .join("&");
+  // }
 
-  const urlWithParams: string =
-    queryString.length > 0 ? `${baseUrl}?${queryString}` : baseUrl;
+  // const urlWithParams: string =
+  //   queryString.length > 0 ? `${baseUrl}?${queryString}` : baseUrl;
 
-  const res = await fetch(urlWithParams, {
-    method: "GET",
-    headers: headers(),
-    cache: "no-cache",
-  });
-  const data: Data = await res.json();
+  // const res = await fetch(urlWithParams, {
+  //   method: "GET",
+  //   headers: headers(),
+  //   cache: "no-cache",
+  // });
+  // const data: Data = await res.json();
 
-  const response = await fetch(`${BASE_URL}/api/users/${session!.user._id}`, {
-    headers: headers(),
-    cache: "no-cache",
-  });
-  const userData = await response.json();
-  const schoolsList: School[] = userData.user.settings.mySchools;
+  // const response = await fetch(`${BASE_URL}/api/users/${session!.user._id}`, {
+  //   headers: headers(),
+  //   cache: "no-cache",
+  // });
+  // const userData = await response.json();
+  // const schoolsList: School[] = userData.user.settings.mySchools;
 
-  const schoolsArray = Object.values(schoolsList);
+  // const schoolsArray = Object.values(schoolsList);
 
-  const hasActiveSchools = schoolsArray.some(
-    (school) => school.active === true
-  );
+  // const hasActiveSchools = schoolsArray.some(
+  //   (school) => school.active === true
+  // );
 
-  if (!hasActiveSchools) {
-    return (
-      <Container>
-        <h1>Dashboard</h1>
-        <ErrorNoSchoolsFound />
-      </Container>
-    );
-  }
+  // if (!hasActiveSchools) {
+  //   return (
+  //     <Container>
+  //       <h1>Dashboard</h1>
+  //       <ErrorNoSchoolsFound />
+  //     </Container>
+  //   );
+  // }
 
   return (
     <>
       <Container>
         <h1>Dashboard</h1>
-        <div className="filters flex justify-between items-center">
+        {/* <div className="filters flex justify-between items-center">
           <div className="space-x-4 flex">
             <div className="btn-group btn-group-vertical lg:btn-group-horizontal">
               <FilterResetQueryParamsButton
@@ -116,10 +116,10 @@ const DashboardHome = async ({ searchParams }: Props) => {
           <div>
             <SearchInput />
           </div>
-        </div>
+        </div> */}
       </Container>
       <div>
-        <TableOfSurveys searchParams={searchParams} data={data} />
+        {/* <TableOfSurveys searchParams={searchParams} data={data} /> */}
       </div>
     </>
   );
