@@ -6,11 +6,11 @@ import { authOptions } from "../auth/[...nextauth]/route";
 import { BASE_URL } from "@/app/config";
 
 export async function GET(request: NextRequest) {
-  // const session = await getServerSession(authOptions);
+  const session = await getServerSession(authOptions);
 
-  // if (!session) {
-  //   return NextResponse.redirect(BASE_URL);
-  // }
+  if (!session) {
+    return NextResponse.redirect(BASE_URL);
+  }
   await dbConnect();
 
   const users = await User.find().limit(10);
