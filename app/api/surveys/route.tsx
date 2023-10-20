@@ -8,7 +8,8 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { BASE_URL } from "@/app/config";
 import { getServerSession } from "next-auth/next";
 
-export async function GET(req: NextRequest) {
+// export async function GET(req: NextRequest) {
+export async function GET(req: Request) {
   const session = await getServerSession(authOptions);
 
   if (!session) {
@@ -75,10 +76,13 @@ export async function GET(req: NextRequest) {
     .limit(pageSize)
     .skip(pageSize * (currentPage - 1));
 
-  return NextResponse.json({
-    surveys,
-    currentPage,
-    pageCount: Math.ceil(count / pageSize),
-    pageSize,
-  });
+  return NextResponse.json(
+    {
+      surveys,
+      currentPage,
+      pageCount: Math.ceil(count / pageSize),
+      pageSize,
+    },
+    { status: 200 }
+  );
 }
