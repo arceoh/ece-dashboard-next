@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import "./globals.css";
+import "@/app/globals.css";
 import Container from "./components/Container";
 
 interface Props {
