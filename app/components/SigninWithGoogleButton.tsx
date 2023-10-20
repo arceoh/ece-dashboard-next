@@ -34,7 +34,7 @@ const SigninWithGoogleButton = () => {
         </div>
       )}
       {status != "loading" && (
-        <Image src="/images/google-color.svg" width={24} height={24} alt="" />
+        <Image src="/images/Google-color.svg" width={24} height={24} alt="" />
       )}
       <span className="pl-1 pr-3 rounded-r-sm"> Sign In with Google</span>
     </button>
