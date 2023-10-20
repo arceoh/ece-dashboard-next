@@ -26,15 +26,15 @@ const getSurveys = async ({ searchParams }: Props) => {
   const urlWithParams: string =
     queryString.length > 0 ? `${baseUrl}?${queryString}` : baseUrl;
 
-  // const res = await fetch(urlWithParams, {
-  //   method: "GET",
-  //   headers: headersInstance,
-  //   cache: "no-cache",
-  //   next: { tags: ["surveys"] },
-  // });
-  // const data: Data = await res.json();
+  const res = await fetch(urlWithParams, {
+    method: "GET",
+    // headers: headersInstance,
+    cache: "no-cache",
+    next: { tags: ["surveys"] },
+  });
+  const data: Data = await res.json();
 
-  // return data;
+  return data;
 };
 
 export default getSurveys;
