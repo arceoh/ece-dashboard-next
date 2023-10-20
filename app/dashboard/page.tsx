@@ -16,23 +16,23 @@ interface Props {
 const DashboardHome = async ({ searchParams }: Props) => {
   const surveys = await getSurveys({ searchParams });
 
-  // const user = await getUser();
-  // const schoolsList: Map<string, School> = user.settings.mySchools;
+  const user = await getUser();
+  const schoolsList: Map<string, School> = user.settings.mySchools;
 
-  // const schoolsArray = Object.values(schoolsList);
+  const schoolsArray = Object.values(schoolsList);
 
-  // const hasActiveSchools = schoolsArray.some(
-  //   (school) => school.active === true
-  // );
+  const hasActiveSchools = schoolsArray.some(
+    (school) => school.active === true
+  );
 
-  // if (!hasActiveSchools) {
-  //   return (
-  //     <Container>
-  //       <h1>Dashboard</h1>
-  //       <ErrorNoSchoolsFound />
-  //     </Container>
-  //   );
-  // }
+  if (!hasActiveSchools) {
+    return (
+      <Container>
+        <h1>Dashboard</h1>
+        <ErrorNoSchoolsFound />
+      </Container>
+    );
+  }
 
   return (
     <>
@@ -56,7 +56,7 @@ const DashboardHome = async ({ searchParams }: Props) => {
         </div>
       </Container>
       <div>
-        {/* <TableOfSurveys searchParams={searchParams} data={surveys} /> */}
+        <TableOfSurveys searchParams={searchParams} data={surveys} />
       </div>
     </>
   );

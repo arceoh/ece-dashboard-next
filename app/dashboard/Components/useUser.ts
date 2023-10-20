@@ -6,7 +6,7 @@ import { User } from "@/app/entities/User";
 
 const getUser = async () => {
   const session = await getServerSession(authOptions);
-  const headersInstance = headers();
+  const headersInstance = new Headers(headers());
 
   const response = await fetch(`${BASE_URL}/api/users/${session!.user._id}`, {
     headers: headersInstance,
