@@ -1,17 +1,14 @@
 import Container from "@/app/components/Container";
 import camelCaseString from "@/utils/camelCaseString";
-import { getServerSession } from "next-auth/next";
-import { headers } from "next/headers";
-import { authOptions } from "../api/auth/[...nextauth]/route";
 import { School } from "../entities/School";
-import { Survey } from "../entities/Survey";
 import ColumnToggleMenu from "./Components/ColumnToggleMenu";
 import ErrorNoSchoolsFound from "./Components/ErrorNoSchoolsFound";
 import FilterResetQueryParamsButton from "./Components/FilterResetQueryParamsButton";
 import SearchInput from "./Components/SearchInput";
 import TableOfSurveys from "./Components/TableOfSurveys";
 import ToggleQueryFParamButton from "./Components/ToggleQueryFParamButton";
-import { BASE_URL } from "../config";
+import getSurveys from "./Components/useSurveys";
+import getUser from "./Components/useUser";
 
 const filtersList = ["Cash Aid", "IEP", "DLI", "Returning"];
 const statusList = ["New", "Pending", "Enrolled", "Denied"];
@@ -20,42 +17,11 @@ interface Props {
   searchParams?: { [key: string]: string | string[] | undefined };
 }
 
-interface Data {
-  surveys: Survey | Survey[];
-  pageCount: number;
-  currentPage: number;
-  pageSize: number;
-}
-
 const DashboardHome = async ({ searchParams }: Props) => {
-  const session = await getServerSession(authOptions);
-  const headersInstance = headers();
+  const surveys = await getSurveys({ searchParams });
 
-  const baseUrl = `${BASE_URL}/api/surveys`;
-
-  let queryString: string = "";
-  if (searchParams) {
-    queryString = Object.keys(searchParams)
-      .map((key) => `${key}=${searchParams[key]}`)
-      .join("&");
-  }
-
-  const urlWithParams: string =
-    queryString.length > 0 ? `${baseUrl}?${queryString}` : baseUrl;
-
-  const res = await fetch(urlWithParams, {
-    method: "GET",
-    headers: headersInstance,
-    cache: "no-cache",
-  });
-  const data: Data = await res.json();
-
-  const response = await fetch(`${BASE_URL}/api/users/${session!.user._id}`, {
-    headers: headersInstance,
-    cache: "no-cache",
-  });
-  const userData = await response.json();
-  const schoolsList: School[] = userData.user.settings.mySchools;
+  const user = await getUser();
+  const schoolsList: Map<string, School> = user.settings.mySchools;
 
   const schoolsArray = Object.values(schoolsList);
 
@@ -120,7 +86,7 @@ const DashboardHome = async ({ searchParams }: Props) => {
         </div>
       </Container>
       <div>
-        <TableOfSurveys searchParams={searchParams} data={data} />
+        <TableOfSurveys searchParams={searchParams} data={surveys} />
       </div>
     </>
   );

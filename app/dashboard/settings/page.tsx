@@ -24,8 +24,8 @@ const SettingsPage = async () => {
     cache: "reload",
     headers: headersInstance,
   });
-  const data = await response.json();
-  const schools: SchoolData = data.user.settings.mySchools;
+  const user = await response.json();
+  const schools: SchoolData = user.settings.mySchools;
 
   return (
     <Suspense fallback={<Loading />}>
