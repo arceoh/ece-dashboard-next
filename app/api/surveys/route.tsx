@@ -9,7 +9,7 @@ import { BASE_URL } from "@/app/config";
 import { getServerSession } from "next-auth/next";
 
 // export async function GET(req: NextRequest) {
-export async function GET(req: Request) {
+export async function GET(request: Request) {
   const session = await getServerSession(authOptions);
 
   if (!session) {
@@ -31,7 +31,7 @@ export async function GET(req: Request) {
     }
   }
 
-  const url = new URL(req.url!);
+  const url = new URL(request.url!);
 
   const queryParams = url.searchParams;
   const currentPage = Number(queryParams.get("page")) || 1; // Current Page

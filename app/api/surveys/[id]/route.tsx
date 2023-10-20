@@ -9,7 +9,7 @@ interface Props {
   params: { id: string };
 }
 
-export async function GET(request: NextRequest, { params: { id } }: Props) {
+export async function GET(request: Request, { params: { id } }: Props) {
   const session = await getServerSession(authOptions);
 
   if (!session) {
