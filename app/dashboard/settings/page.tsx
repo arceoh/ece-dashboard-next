@@ -18,7 +18,7 @@ const SettingsPage = async () => {
     return NextResponse.redirect(BASE_URL);
   }
 
-  const headersInstance = headers();
+  const headersInstance = new Headers(headers());
 
   const response = await fetch(`${BASE_URL}/api/users/${session.user._id}`, {
     cache: "reload",

@@ -11,7 +11,7 @@ interface Props {
 }
 
 const EditSurveyPage = async ({ params: { survey_id } }: Props) => {
-  const headersInstance = headers();
+  const headersInstance = new Headers(headers());
 
   const response = await fetch(`${BASE_URL}/api/surveys/${survey_id}`, {
     headers: headersInstance,
