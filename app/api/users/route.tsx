@@ -18,8 +18,5 @@ export async function GET(request: Request) {
   // return NextResponse.json(users);
   return new Response(JSON.stringify(users), {
     status: 200,
-    headers: {
-      "Content-Type": "application/json",
-    },
   });
 }

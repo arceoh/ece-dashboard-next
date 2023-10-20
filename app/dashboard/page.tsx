@@ -14,7 +14,7 @@ interface Props {
 }
 
 const DashboardHome = async ({ searchParams }: Props) => {
-  // const surveys = await getSurveys({ searchParams });
+  const surveys = await getSurveys({ searchParams });
 
   // const user = await getUser();
   // const schoolsList: Map<string, School> = user.settings.mySchools;

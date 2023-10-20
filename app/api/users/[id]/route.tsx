@@ -26,8 +26,5 @@ export async function GET(request: Request, { params: { id } }: Props) {
 
   return new NextResponse(JSON.stringify(user), {
     status: 200,
-    headers: {
-      "Content-Type": "application/json",
-    },
   });
 }
