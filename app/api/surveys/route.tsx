@@ -13,6 +13,7 @@ export async function GET(req: Request) {
   const session = await getServerSession(authOptions);
 
   if (!session) {
+    throw new Error("Auth is required");
     return NextResponse.redirect(BASE_URL);
   }
 
