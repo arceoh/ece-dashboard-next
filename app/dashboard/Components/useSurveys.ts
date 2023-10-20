@@ -14,7 +14,8 @@ interface Props {
 }
 
 const getSurveys = async ({ searchParams }: Props) => {
-  const headersInstance = headers();
+  const headersInstance = new Headers(headers());
+
   const baseUrl = `${BASE_URL}/api/surveys`;
   let queryString: string = "";
   if (searchParams) {
@@ -28,7 +29,7 @@ const getSurveys = async ({ searchParams }: Props) => {
 
   const res = await fetch(urlWithParams, {
     method: "GET",
-    // headers: headersInstance,
+    headers: headersInstance,
     cache: "no-cache",
     next: { tags: ["surveys"] },
   });
