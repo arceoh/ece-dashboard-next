@@ -15,5 +15,11 @@ export async function GET(request: Request) {
 
   const users = await User.find().limit(10);
 
-  return NextResponse.json(users);
+  // return NextResponse.json(users);
+  return new Response(JSON.stringify(users), {
+    status: 200,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 }
