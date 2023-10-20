@@ -1,6 +1,5 @@
 import { useSession, signIn } from "next-auth/react";
 import Image from "next/image";
-import GoogleColor from "@/public/google-color.svg";
 
 const SigninWithGoogleButton = () => {
   const { data: session, status } = useSession();
