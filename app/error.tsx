@@ -19,8 +19,8 @@ const error = ({ error, reset }: Props) => {
         <button className="btn btn-secondary" onClick={reset}>
           Try Again
         </button>
-        <Link href="/">
-          <a className="btn btn-primary">Go Home</a>
+        <Link className="btn btn-primary" href="/">
+          Go Home
         </Link>
       </div>
     </Container>
