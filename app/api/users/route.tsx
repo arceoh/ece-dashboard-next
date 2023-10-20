@@ -15,5 +15,5 @@ export async function GET(request: NextRequest) {
 
   const users = await User.find().limit(10);
 
-  return NextResponse.json({ users });
+  return NextResponse.json(users);
 }
