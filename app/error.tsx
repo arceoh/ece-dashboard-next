@@ -7,6 +7,7 @@ interface Props {
 }
 
 const error = ({ error, reset }: Props) => {
+  console.error(error);
   return (
     <div>
       <h1>Error</h1>
