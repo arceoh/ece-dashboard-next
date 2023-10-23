@@ -10,10 +10,11 @@ const ColumnToggleMenu = () => {
   return (
     <Popover className="dropdown">
       <Popover.Button className="btn btn-xs">
-        Columns
-        <AiFillCaretDown />
+        <div className="flex">
+          <span className="mr-2">Columns</span>
+          <AiFillCaretDown />
+        </div>
       </Popover.Button>
-
       <Popover.Panel className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
         {columns.map((item) => (
           <ColumnSelectCheckbox

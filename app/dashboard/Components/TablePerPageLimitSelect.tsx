@@ -24,10 +24,12 @@ const TablePerPageLimitSelect = ({ searchParams }: Props) => {
 
   return (
     <div className="dropdown dropdown-top dropdown-end">
-      <label tabIndex={0} className="btn btn-sm">
-        <MdFilterAlt /> Limit
-        <span className="badge badge-neutral">{currentPageSize}</span>
-      </label>
+      <div className="flex">
+        <label tabIndex={0} className="btn btn-sm">
+          <MdFilterAlt /> Limit
+          <span className="badge badge-neutral">{currentPageSize}</span>
+        </label>
+      </div>
       <ul
         tabIndex={0}
         className="dropdown-content z-[1] menu shadow bg-base-100"

@@ -38,14 +38,12 @@ const DashboardHome = async ({ searchParams }: Props) => {
     <>
       <Container>
         <h1>Dashboard</h1>
-        <div className="filters flex justify-between items-center">
-          <div className="space-x-4 flex">
-            <div className="btn-group btn-group-vertical lg:btn-group-horizontal">
-              <FilterQueries searchParams={searchParams} />
-            </div>
-            <div className="btn-group btn-group-vertical lg:btn-group-horizontal">
-              <StatusQueries searchParams={searchParams} />
-            </div>
+        <div className="flex justify-start flex-wrap items-center sm:justify-between space-y-2 xl:space-y-0">
+          <div className="btn-group btn-group-horizontal mr-4">
+            <FilterQueries searchParams={searchParams} />
+          </div>
+          <div className="btn-group btn-group-horizontal">
+            <StatusQueries searchParams={searchParams} />
           </div>
           <div>
             <ColumnToggleMenu />
