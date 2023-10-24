@@ -23,11 +23,12 @@ const ColumnToggleView = ({
   };
   return (
     <>
-      {showColumn(title) && (
-        <Tag align="center" className={`${fontWeight} `}>
-          {children}
-        </Tag>
-      )}
+      <Tag
+        align="center"
+        className={`${showColumn(title) ? "" : "hidden"} ${fontWeight} `}
+      >
+        {children}
+      </Tag>
     </>
   );
 };
