@@ -1,9 +1,9 @@
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar/Navbar";
 
-interface Props {
+type Props = {
   children: React.ReactNode;
-}
+};
 export default function DashboardLayout({ children }: Props) {
   return (
     <div className="min-h-screen flex-col flex">

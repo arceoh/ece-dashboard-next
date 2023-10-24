@@ -10,9 +10,9 @@ export const metadata: Metadata = {
   description: "Track and manage ECE preschool interest list surveys",
 };
 
-interface Props {
+type Props = {
   children: React.ReactNode;
-}
+};
 
 export default function RootLayout({ children }: Props) {
   return (

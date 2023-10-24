@@ -6,12 +6,10 @@ import { authOptions } from "../../auth/[...nextauth]/route";
 import { BASE_URL } from "@/app/config";
 import { headers } from "next/headers";
 
-interface Props {
+type Props = {
   params: { id: string };
-}
+};
 
-// export async function GET(request: NextRequest, { params: { id } }: Props) {
-// export async function GET(request: Request, { params: { id } }: Props) {
 export async function GET(request: Request, { params: { id } }: Props) {
   const session = await getServerSession(authOptions);
 

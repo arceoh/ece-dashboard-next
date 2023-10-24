@@ -5,9 +5,9 @@ type SchoolData = {
   [key: string]: School;
 };
 
-interface Props {
+type Props = {
   schools: SchoolData;
-}
+};
 
 const Schools = ({ schools }: Props) => {
   const schoolsArray = Object.values(schools);

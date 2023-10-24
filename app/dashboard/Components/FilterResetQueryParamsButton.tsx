@@ -2,10 +2,10 @@ import camelCaseString from "@/utils/camelCaseString";
 import Link from "next/link";
 import { MdFilterAlt, MdFilterAltOff } from "react-icons/md";
 
-interface Props {
+type Props = {
   searchParams?: { [key: string]: string | string[] | undefined };
   clearFilters: string[];
-}
+};
 
 const FilterResetQueryParamsButton = ({
   searchParams,

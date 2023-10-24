@@ -6,9 +6,9 @@ import Loading from "./loading";
 import { headers } from "next/headers";
 import { BASE_URL } from "@/app/config";
 
-interface Props {
+type Props = {
   params: { survey_id: string };
-}
+};
 
 const EditSurveyPage = async ({ params: { survey_id } }: Props) => {
   const headersInstance = new Headers(headers());

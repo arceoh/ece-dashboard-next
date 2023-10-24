@@ -9,10 +9,10 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import z from "zod";
 import { updateSurvey } from "../actions";
 
-interface Props {
+type Props = {
   survey: Survey;
   schoolsList: School[];
-}
+};
 
 type Inputs = z.infer<typeof SurveyFormDataSchema>;
 

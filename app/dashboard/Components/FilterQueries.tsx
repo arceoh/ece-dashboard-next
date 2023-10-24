@@ -4,9 +4,9 @@ import ToggleQueryFParamButton from "./ToggleQueryFParamButton";
 
 const filtersList = ["Cash Aid", "IEP", "DLI", "Returning"];
 
-interface Props {
+type Props = {
   searchParams?: { [key: string]: string | string[] | undefined };
-}
+};
 
 const FilterQueries = ({ searchParams }: Props) => {
   return (

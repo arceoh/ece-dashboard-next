@@ -2,12 +2,12 @@
 import useStatusStore from "@/app/hooks/useStatusStore";
 import { Switch } from "@headlessui/react";
 
-interface Props {
+type Props = {
   StatusSlug: string;
   title: string;
   isLast?: boolean;
   isFirst?: boolean;
-}
+};
 
 const StatusSwitchButton = ({ StatusSlug, title }: Props) => {
   const { status, toggleStatus } = useStatusStore();

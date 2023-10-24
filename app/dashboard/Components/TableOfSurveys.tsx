@@ -6,7 +6,7 @@ import TablePagination from "./TablePagination";
 import TablePerPageLimitSelect from "./TablePerPageLimitSelect";
 import Container from "@/app/components/Container";
 
-interface Props {
+type Props = {
   searchParams?: { [key: string]: string | string[] | undefined };
   data: {
     surveys: Survey | Survey[];
@@ -14,7 +14,7 @@ interface Props {
     currentPage: number;
     pageSize: number;
   };
-}
+};
 
 const TableOfSurveys = ({ searchParams, data }: Props) => {
   const surveys: Survey | Survey[] = Object.values(data.surveys);

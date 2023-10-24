@@ -9,9 +9,9 @@ import TableOfSurveys from "./Components/TableOfSurveys";
 import getSurveys from "./Components/useSurveys";
 import getUser from "./Components/useUser";
 
-interface Props {
+type Props = {
   searchParams?: { [key: string]: string | string[] | undefined };
-}
+};
 
 const DashboardHome = async ({ searchParams }: Props) => {
   const surveys = await getSurveys({ searchParams });

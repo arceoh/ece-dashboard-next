@@ -1,8 +1,8 @@
-interface Props {
+type Props = {
   title: string;
   value: boolean;
   onChange: (title: string) => void;
-}
+};
 
 const ColumnSelectCheckbox = ({ title, value, onChange }: Props) => {
   return (

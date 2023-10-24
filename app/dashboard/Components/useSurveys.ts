@@ -9,9 +9,9 @@ interface Data {
   pageSize: number;
 }
 
-interface Props {
+type Props = {
   searchParams?: { [key: string]: string | string[] | undefined };
-}
+};
 
 const getSurveys = async ({ searchParams }: Props) => {
   const headersInstance = new Headers(headers());

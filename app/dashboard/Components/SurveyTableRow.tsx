@@ -7,9 +7,9 @@ import ColumnTD from "./ColumnTD";
 import ColumnToggleView from "./ColumnToggleView";
 import SurveyStatus from "./SurveyStatus";
 
-interface Props {
+type Props = {
   item: Survey;
-}
+};
 
 const SurveyTableRow = ({ item: survey }: Props) => {
   return (

@@ -7,9 +7,9 @@ import camelCaseString from "@/utils/camelCaseString";
 import { updateSchool } from "./actions";
 import { School } from "@/app/entities/School";
 
-interface Props {
+type Props = {
   school: School;
-}
+};
 
 export default function UpdateCheckbox({ school }: Props) {
   const router = useRouter();

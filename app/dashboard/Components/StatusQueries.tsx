@@ -3,9 +3,9 @@ import FilterResetQueryParamsButton from "./FilterResetQueryParamsButton";
 import ToggleQueryFParamButton from "./ToggleQueryFParamButton";
 
 const statusList = ["New", "Pending", "Enrolled", "Denied"];
-interface Props {
+type Props = {
   searchParams?: { [key: string]: string | string[] | undefined };
-}
+};
 
 const StatusQueries = ({ searchParams }: Props) => {
   return (

@@ -3,10 +3,10 @@ import Link from "next/link";
 import "@/app/globals.css";
 import Container from "./components/Container";
 
-interface Props {
+type Props = {
   error: Error;
   reset: () => void;
-}
+};
 
 const error = ({ error, reset }: Props) => {
   console.error(error);

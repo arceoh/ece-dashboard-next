@@ -2,10 +2,10 @@
 import useFilterStore from "@/app/hooks/useFilterStore";
 import { Switch } from "@headlessui/react";
 
-interface Props {
+type Props = {
   filterSlug: string;
   title: string;
-}
+};
 
 const FilterSwitchButton = ({ filterSlug, title }: Props) => {
   const { filters, toggleFilter } = useFilterStore();

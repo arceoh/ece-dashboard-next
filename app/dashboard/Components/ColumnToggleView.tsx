@@ -2,12 +2,12 @@
 import useColumnViewStore from "@/app/hooks/useColumnViewStore";
 import { ReactNode, ElementType, HTMLAttributes } from "react";
 
-interface Props extends HTMLAttributes<HTMLOrSVGElement> {
-  children: ReactNode;
+type Props = {
+  children: React.ReactNode;
   title: string;
   fontWeight?: string;
-  as?: ElementType;
-}
+  as?: React.ElementType;
+} & React.HTMLAttributes<HTMLOrSVGElement>;
 
 const ColumnToggleView = ({
   children,

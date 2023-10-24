@@ -3,9 +3,9 @@ import { MdDoNotDisturb } from "react-icons/md";
 import { MdPendingActions } from "react-icons/md";
 import { MdFiberNew } from "react-icons/md";
 
-interface Props {
+type Props = {
   status: string;
-}
+};
 
 interface StatusMap {
   icon: JSX.Element;

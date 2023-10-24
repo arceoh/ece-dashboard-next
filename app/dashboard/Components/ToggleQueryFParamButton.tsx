@@ -1,10 +1,10 @@
 import Link from "next/link";
 
-interface Props {
+type Props = {
   filterSlug: string;
   title: string;
   searchParams?: { [key: string]: string | string[] | undefined };
-}
+};
 const ToggleQueryFParamButton = ({
   filterSlug,
   title,
