@@ -10,8 +10,6 @@ const TablePagination = ({ searchParams, pageCount, currentPage }: Props) => {
   const pages = Array.from(Array(pageCount).keys());
   const filters = { ...searchParams };
 
-  if (pageCount === 1) return null;
-
   return (
     <div className="text-center">
       <div className="join">
