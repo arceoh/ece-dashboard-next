@@ -1,3 +1,4 @@
+import Footer from "../components/Footer";
 import Navbar from "../components/Navbar/Navbar";
 
 interface Props {
@@ -5,11 +6,10 @@ interface Props {
 }
 export default function DashboardLayout({ children }: Props) {
   return (
-    <div className="min-h-full">
+    <div className="min-h-screen flex-col flex">
       <Navbar />
-      <main>
-        <div className="px-4">{children}</div>
-      </main>
+      <main className="flex-1">{children}</main>
+      <Footer />
     </div>
   );
 }
