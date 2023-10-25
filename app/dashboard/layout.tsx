@@ -8,7 +8,7 @@ export default function DashboardLayout({ children }: Props) {
   return (
     <div className="min-h-screen flex-col flex">
       <Navbar />
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 mb-8">{children}</main>
       <Footer />
     </div>
   );

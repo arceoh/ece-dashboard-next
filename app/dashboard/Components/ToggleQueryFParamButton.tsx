@@ -5,6 +5,9 @@ type Props = {
   title: string;
   searchParams?: { [key: string]: string | string[] | undefined };
 };
+
+const removeOtherFilters = ["page", "pageSize", "search"];
+
 const ToggleQueryFParamButton = ({
   filterSlug,
   title,
@@ -20,12 +23,12 @@ const ToggleQueryFParamButton = ({
     filters[filterSlug] = "true";
     active = false;
   }
-  if (filters.hasOwnProperty("page")) {
-    delete filters["page"];
-  }
-  if (filters.hasOwnProperty("pageSize")) {
-    delete filters["pageSize"];
-  }
+
+  removeOtherFilters.forEach((filter) => {
+    if (filters.hasOwnProperty(filter)) {
+      delete filters[filter];
+    }
+  });
 
   return (
     <Link
