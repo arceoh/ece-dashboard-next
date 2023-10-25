@@ -1,9 +1,7 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Switch } from "@headlessui/react";
 import { useThemeStore } from "../hooks/useThemeStore";
-
-type Theme = "dark" | "light";
 
 const ThemeToggle = () => {
   const { theme, toggleTheme } = useThemeStore();
