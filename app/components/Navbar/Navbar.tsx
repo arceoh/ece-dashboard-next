@@ -39,7 +39,7 @@ const navigation: NavLinks[] = [
 export default function Example() {
   const { status, data: session } = useSession();
 
-  let avatarSrc: string;
+  let avatarSrc: string = "";
   if (session && session.user && session.user.image) {
     avatarSrc = session.user.image;
   }
@@ -78,7 +78,9 @@ export default function Example() {
                 </div>
                 <div className="avatar">
                   <div className="w-9 rounded-full">
-                    <Image src={avatarSrc} width={500} height={500} alt="" />
+                    {avatarSrc != "" && (
+                      <Image src={avatarSrc} width={500} height={500} alt="" />
+                    )}
                   </div>
                 </div>
                 <Disclosure.Button className="btn btn-ghost text-xl md:hidden">

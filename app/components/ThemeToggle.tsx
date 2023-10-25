@@ -1,42 +1,32 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Switch } from "@headlessui/react";
-// import { FaSun } from "react-icons/fa";
-// import { BsFillMoonStarsFill } from "react-icons/bs";
+import { useThemeStore } from "../hooks/useThemeStore";
 
 type Theme = "dark" | "light";
 
 const ThemeToggle = () => {
-  const [isDarkTheme, setIsDarkTheme] = useState(true);
+  const { theme, toggleTheme } = useThemeStore();
 
-  const setTheme = (theme: Theme) => {
+  const setTheme = (theme: string) => {
     if (theme === "light") {
       document.documentElement.classList.remove("dark");
       document.documentElement.dataset.theme = "aesdLight";
-      localStorage.setItem("theme", "light");
-      setIsDarkTheme(false);
     } else {
       document.documentElement.classList.add("dark");
       document.documentElement.dataset.theme = "aesdDark";
-      localStorage.setItem("theme", "dark");
-      setIsDarkTheme(true);
     }
   };
 
   useEffect(() => {
-    const theme =
-      localStorage.getItem("theme") === "dark" ||
-      localStorage.getItem("theme") === null
-        ? "dark"
-        : "light";
     setTheme(theme);
-  }, []);
+  }, [theme]);
 
   return (
     <>
       <Switch
-        checked={isDarkTheme}
-        onChange={(e) => (e ? setTheme("dark") : setTheme("light"))}
+        checked={theme === "dark"}
+        onChange={toggleTheme}
         className="toggle toggle-accent"
       />
     </>
