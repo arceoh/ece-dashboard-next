@@ -12,18 +12,24 @@ export async function updateSurvey(survey: Inputs) {
 
   const surveyID = survey._id;
   if (result.success) {
+    console.log("Result: SUCCESS");
     await dbConnect();
 
-    const newSurvey = await Survey.findOneAndUpdate(
+    const updatedSurvey = await Survey.findOneAndUpdate(
       { _id: surveyID },
-      result.data
+      result.data,
+      {
+        new: true,
+      }
     );
+
     revalidatePath(`/dashboard/${surveyID}`);
     revalidatePath("/dashboard");
     return { success: true, data: result.data };
   }
 
   if (result.error) {
+    console.log(result.error.format());
     return { success: false, error: result.error.format() };
   }
 }

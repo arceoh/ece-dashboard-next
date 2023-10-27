@@ -31,7 +31,7 @@ const surveySchema = new mongoose.Schema(
         type: String,
         required: [true, "Guardian Phone Number Required"],
       },
-      preferedLanguage: String,
+      preferredLanguage: String,
       address_1: {
         type: String,
         required: [true, "Guardian Address Required"],
@@ -49,7 +49,7 @@ const surveySchema = new mongoose.Schema(
         type: Number,
         required: [true, "Guardian Monthly Income Required"],
       },
-      preferedLocation: {
+      preferredLocation: {
         type: String,
         required: [true, "School of Interest  Required"],
       },

@@ -8,6 +8,10 @@ import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import z from "zod";
 import { updateSurvey } from "../actions";
+// import ErrorMessage from "./ErrorMessage";
+import { ErrorMessage } from "@hookform/error-message";
+import ErrorMessageWrapper from "./ErrorMessageWrapper";
+import { twMerge } from "tailwind-merge";
 
 type Props = {
   survey: Survey;
@@ -20,7 +24,7 @@ const SurveyForms = ({ survey, schoolsList }: Props) => {
   const sortedSchool = schoolsList.toSorted((a, b) => {
     return a.name.localeCompare(b.name);
   });
-
+  console.log(survey);
   const router = useRouter();
 
   const {
@@ -28,7 +32,8 @@ const SurveyForms = ({ survey, schoolsList }: Props) => {
     handleSubmit,
     watch,
     reset,
-    formState: { errors },
+    setError,
+    formState: { errors, isSubmitting },
   } = useForm<Inputs>({
     resolver: zodResolver(SurveyFormDataSchema),
     defaultValues: {
@@ -41,7 +46,18 @@ const SurveyForms = ({ survey, schoolsList }: Props) => {
   });
 
   const processForm: SubmitHandler<Inputs> = async (data) => {
-    const result = await updateSurvey(data);
+    console.log("Sending Form to Server");
+    console.log("React Hook Form Errors", errors);
+
+    const formatedData = {
+      ...data,
+      student: {
+        ...data.student,
+        birthdate: dayjs(data.student.birthdate).toDate(),
+      },
+    };
+
+    const result = await updateSurvey(formatedData);
 
     if (!result) {
       console.log("Something went wrong");
@@ -49,330 +65,466 @@ const SurveyForms = ({ survey, schoolsList }: Props) => {
     }
 
     if (result.error) {
-      // set local error state
-      console.log(result.error);
+      // set Errors from server to local error state
+      if (result.error.student?.firstName) {
+        setError("student.firstName", {
+          type: "server",
+          message: "First name is required",
+        });
+      }
+      if (result.error.student?.lastName) {
+        setError("student.lastName", {
+          type: "server",
+          message: "Last name is required",
+        });
+      }
+      if (result.error.student?.birthdate) {
+        setError("student.birthdate", {
+          type: "server",
+          message: "Birthdate is required",
+        });
+      }
+      if (result.error.guardian?.familySize) {
+        setError("guardian.familySize", {
+          type: "server",
+          message: "Familiy size is invalid. Must be between 1 and 20",
+        });
+      }
+      if (result.error.guardian?.monthlyIncome) {
+        setError("guardian.monthlyIncome", {
+          type: "server",
+          message: "Montly Income is invalid. Must be greater than 0",
+        });
+      }
       return;
     }
-    // router.push("/dashboard");
-    router.back();
+
+    if (result.success) {
+      router.back();
+    }
   };
 
   return (
-    <form className="edit-survey mb-28" onSubmit={handleSubmit(processForm)}>
-      <div className="space-y-8">
-        <fieldset>
-          <legend>Student Information</legend>
-          <div className="space-y-5">
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              <div>
-                <label className="label" htmlFor="student_firstName">
-                  <span className="label-text">First Name</span>
-                </label>
-                <input
-                  {...register("student.firstName")}
-                  id="student_firstName"
-                  type="text"
-                  className="input input-bordered w-full"
-                />
-              </div>
-              <div>
-                <label className="label" htmlFor="student_middleName">
-                  <span className="label-text">Middle Name</span>
-                </label>
-                <input
-                  {...register("student.middleName")}
-                  id="student_middleName"
-                  type="text"
-                  className="input input-bordered w-full"
-                />
-              </div>
-              <div>
-                <label className="label" htmlFor="student_lastName">
-                  <span className="label-text">Last Name</span>
-                </label>
-                <input
-                  {...register("student.lastName")}
-                  id="student_lastName"
-                  type="text"
-                  className="input input-bordered w-full"
-                />
-              </div>
-            </div>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              <div>
-                <label className="label" htmlFor="student_birthdate">
-                  <span className="label-text">Birthdate</span>
-                </label>
-                <input
-                  {...register("student.birthdate")}
-                  id="student_birthdate"
-                  type="text"
-                  className="input input-bordered w-full"
-                />
-              </div>
-            </div>
-            <div className="form-control">
-              <label
-                className="cursor-pointer label justify-start"
-                htmlFor="student_iep"
-              >
-                <input
-                  {...register("student.enrollInIEP")}
-                  id="student_iep"
-                  name="student_iep"
-                  type="checkbox"
-                  className="checkbox mr-4"
-                />
-                <span className="label-text">
-                  Individualized Family Support Plan (IFSP) or an Individualized
-                  Education Plan (IEP)?
-                </span>
-              </label>
-            </div>
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>Guardian Information</legend>
-          <div className="space-y-5">
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              <div>
-                <label
-                  className="font-semibold text-gray-700 dark:text-gray-200"
-                  htmlFor="guardian_firstName"
-                >
-                  <span className="label-text">First Name</span>
-                </label>
-                <input
-                  {...register("guardian.firstName")}
-                  id="guardian_firstName"
-                  type="text"
-                  className="input input-bordered w-full"
-                />
-              </div>
-              <div>
-                <label
-                  className="font-semibold text-gray-700 dark:text-gray-200"
-                  htmlFor="guardian_lastName"
-                >
-                  <span className="label-text">Last Name</span>
-                </label>
-                <input
-                  {...register("guardian.lastName")}
-                  id="guardian_lastName"
-                  type="text"
-                  className="input input-bordered w-full"
-                />
-              </div>
-              <div>
-                <label
-                  className="font-semibold text-gray-700 dark:text-gray-200"
-                  htmlFor="guardian_email"
-                >
-                  <span className="label-text">Email</span>
-                </label>
-                <input
-                  {...register("guardian.email")}
-                  id="guardian_email"
-                  type="text"
-                  className="input input-bordered w-full"
-                />
-              </div>
-              <div>
-                <label
-                  className="font-semibold text-gray-700 dark:text-gray-200"
-                  htmlFor="guardian_phone"
-                >
-                  <span className="label-text">Phone</span>
-                </label>
-                <input
-                  {...register("guardian.phone")}
-                  id="guardian_phone"
-                  type="text"
-                  className="input input-bordered w-full"
-                />
-              </div>
-            </div>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              <div>
-                <label className="label" htmlFor="guardian_address_1">
-                  <span className="label-text">Address Line 1</span>
-                </label>
-                <input
-                  {...register("guardian.address_1")}
-                  id="guardian_address_1"
-                  type="text"
-                  className="input input-bordered w-full"
-                />
-              </div>
-              <div>
-                <label className="label" htmlFor="guardian_address_2">
-                  <span className="label-text">Address Line 2</span>
-                </label>
-                <input
-                  {...register("guardian.address_2")}
-                  id="guardian_address_2"
-                  type="text"
-                  className="input input-bordered w-full"
-                />
-              </div>
-            </div>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              <div>
-                <label className="label" htmlFor="guardian_city">
-                  <span className="label-text">City</span>
-                </label>
-                <input
-                  {...register("guardian.city")}
-                  id="guardian_city"
-                  type="text"
-                  className="input input-bordered w-full"
-                />
-              </div>
-              <div>
-                <label className="label" htmlFor="student_state">
-                  <span className="label-text">State</span>
-                </label>
-                <input
-                  {...register("guardian.state")}
-                  id="student_state"
-                  type="text"
-                  className="input input-bordered w-full"
-                />
-              </div>
-              <div>
-                <label className="label" htmlFor="guardian_zip">
-                  <span className="label-text">Zip</span>
-                </label>
-                <input
-                  {...register("guardian.zip")}
-                  id="guardian_zip"
-                  type="text"
-                  className="input input-bordered w-full"
-                />
-              </div>
-            </div>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
-              <div>
-                <label className="label" htmlFor="guardian_familySize">
-                  <span className="label-text">Family Size</span>
-                </label>
-                <input
-                  {...register("guardian.familySize")}
-                  id="guardian_familySize"
-                  type="text"
-                  className="input input-bordered w-full"
-                />
-              </div>
-              <div>
-                <label className="label" htmlFor="guardian_monthlyIncome">
-                  <span className="label-text">Monthly Income</span>
-                </label>
-                <input
-                  {...register("guardian.monthlyIncome")}
-                  id="guardian_monthlyIncome"
-                  type="text"
-                  className="input input-bordered w-full"
-                />
-              </div>
-            </div>
-            <div className="form-control">
-              <label
-                className="label cursor-pointer justify-start"
-                htmlFor="guardian_dliInterest"
-              >
-                <input
-                  {...register("guardian.dliInterest")}
-                  id="guardian_dliInterest"
-                  name="guardian_dliInterest"
-                  type="checkbox"
-                  className="checkbox mr-4"
-                />
-                <span className="label-text">
-                  Would you be interested in Dual Language Immersion (DLI) for
-                  your child?
-                </span>
-              </label>
-            </div>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
-              <div>
-                <label className="label" htmlFor="guardian_preferredLanguage">
-                  <span className="label-text">Prefered Language</span>
-                </label>
-                <input
-                  {...register("guardian.preferedLanguage")}
-                  id="guardian_preferredLanguage"
-                  type="text"
-                  className="input input-bordered w-full"
-                />
-              </div>
-              <div>
-                <label className="label" htmlFor="guardian_preferredLocation">
-                  <span className="label-text">Prefered Location</span>
-                </label>
-                <select
-                  {...register("guardian.preferedLocation")}
-                  className="select select-bordered w-full max-w-xs"
-                >
-                  {sortedSchool.map((school) => (
-                    <option
-                      className="btn btn-ghost btn-block font-sans cursor-pointer normal-case text-lg "
-                      key={school._id}
-                      value={school.name}
-                    >
-                      {school.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>Status & Notes</legend>
-          <div className="space-y-5">
-            <div className="grid grid-cols-4 gap-6">
-              <div className="form-control w-full max-w-xs">
-                <label className="label" htmlFor="status">
-                  <span className="label-text">Status</span>
-                </label>
-                <select
-                  {...register("status")}
-                  className="select select-bordered font-sans"
-                >
-                  <option value="New">New</option>
-                  <option value="Pending">Pending</option>
-                  <option value="Enrolled">Enrolled</option>
-                  <option value="Denied">Denied</option>
-                </select>
-              </div>
-
-              <div className="col-span-3">
-                <div className="form-control">
-                  <label className="label" htmlFor="notes">
-                    <span className="label-text">Notes</span>
+    <>
+      <form className="edit-survey mb-28" onSubmit={handleSubmit(processForm)}>
+        <div className="space-y-8">
+          <fieldset>
+            <legend>Student Information</legend>
+            <div className="space-y-5">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                <div>
+                  <label className="label" htmlFor="student.firstName">
+                    <span className="label-text">First Name</span>
                   </label>
-                  <textarea
-                    {...register("note")}
-                    className="textarea textarea-bordered textarea-lg w-full h-44"
-                    placeholder="Notes"
-                  ></textarea>
+                  <input
+                    {...register("student.firstName")}
+                    id="student.firstName"
+                    type="text"
+                    className={twMerge(
+                      "input input-bordered w-full",
+                      errors?.student?.lastName && "input-error"
+                    )}
+                    aria-invalid={errors?.student?.firstName ? "true" : "false"}
+                  />
+                  <ErrorMessage
+                    errors={errors}
+                    name="student.firstName"
+                    render={({ message }) => (
+                      <ErrorMessageWrapper message={message} />
+                    )}
+                  />
+                </div>
+                <div>
+                  <label className="label" htmlFor="student.middleName">
+                    <span className="label-text">Middle Name</span>
+                  </label>
+                  <input
+                    {...register("student.middleName")}
+                    id="student.middleName"
+                    aria-invalid={
+                      errors?.student?.middleName ? "true" : "false"
+                    }
+                    type="text"
+                    className="input input-bordered w-full"
+                  />
+                </div>
+                <div>
+                  <label className="label" htmlFor="student.lastName">
+                    <span className="label-text">Last Name</span>
+                  </label>
+                  <input
+                    {...register("student.lastName")}
+                    aria-invalid={errors?.student?.lastName ? "true" : "false"}
+                    id="student.lastName"
+                    type="text"
+                    className={twMerge(
+                      "input input-bordered w-full",
+                      errors?.student?.lastName && "input-error"
+                    )}
+                  />
+                  <ErrorMessage
+                    errors={errors}
+                    name="student.lastName"
+                    render={({ message }) => (
+                      <ErrorMessageWrapper message={message} />
+                    )}
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                <div>
+                  <label className="label" htmlFor="student.birthdate">
+                    <span className="label-text">Birthdate</span>
+                  </label>
+                  <input
+                    {...register("student.birthdate")}
+                    id="student.birthdate"
+                    aria-invalid={errors?.student?.birthdate ? "true" : "false"}
+                    type="text"
+                    className={twMerge(
+                      "input input-bordered w-full",
+                      errors?.student?.birthdate && "input-error"
+                    )}
+                  />
+                  <ErrorMessage
+                    errors={errors}
+                    name="student.birthdate"
+                    render={({ message }) => (
+                      <ErrorMessageWrapper message={message} />
+                    )}
+                  />
+                </div>
+              </div>
+              <div className="form-control">
+                <label
+                  className="cursor-pointer label justify-start"
+                  htmlFor="student.enrollInIEP"
+                >
+                  <input
+                    {...register("student.enrollInIEP")}
+                    id="student.enrollInIEP"
+                    aria-invalid={
+                      errors?.student?.enrollInIEP ? "true" : "false"
+                    }
+                    type="checkbox"
+                    className="checkbox mr-4"
+                  />
+                  <span className="label-text">
+                    Individualized Family Support Plan (IFSP) or an
+                    Individualized Education Plan (IEP)?
+                  </span>
+                </label>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Guardian Information</legend>
+            <div className="space-y-5">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <label
+                    className="font-semibold text-gray-700 dark:text-gray-200"
+                    htmlFor="guardian.firstName"
+                  >
+                    <span className="label-text">First Name</span>
+                  </label>
+                  <input
+                    {...register("guardian.firstName")}
+                    id="guardian.firstName"
+                    aria-invalid={
+                      errors?.guardian?.firstName ? "true" : "false"
+                    }
+                    type="text"
+                    className="input input-bordered w-full"
+                  />
+                  <ErrorMessage
+                    errors={errors}
+                    name="guardian.firstName"
+                    render={({ message }) => (
+                      <ErrorMessageWrapper message={message} />
+                    )}
+                  />
+                </div>
+                <div>
+                  <label
+                    className="font-semibold text-gray-700 dark:text-gray-200"
+                    htmlFor="guardian.lastName"
+                  >
+                    <span className="label-text">Last Name</span>
+                  </label>
+                  <input
+                    {...register("guardian.lastName")}
+                    id="guardian.lastName"
+                    aria-invalid={errors?.guardian?.lastName ? "true" : "false"}
+                    type="text"
+                    className="input input-bordered w-full"
+                  />
+                  <ErrorMessage
+                    errors={errors}
+                    name="guardian.lastName"
+                    render={({ message }) => (
+                      <ErrorMessageWrapper message={message} />
+                    )}
+                  />
+                </div>
+                <div>
+                  <label
+                    className="font-semibold text-gray-700 dark:text-gray-200"
+                    htmlFor="guardian.email"
+                  >
+                    <span className="label-text">Email</span>
+                  </label>
+                  <input
+                    {...register("guardian.email")}
+                    id="guardian.email"
+                    aria-invalid={errors?.guardian?.email ? "true" : "false"}
+                    type="text"
+                    className="input input-bordered w-full"
+                  />
+                  <ErrorMessage
+                    errors={errors}
+                    name="guardian.email"
+                    render={({ message }) => (
+                      <ErrorMessageWrapper message={message} />
+                    )}
+                  />
+                </div>
+                <div>
+                  <label
+                    className="font-semibold text-gray-700 dark:text-gray-200"
+                    htmlFor="guardian.phone"
+                  >
+                    <span className="label-text">Phone</span>
+                  </label>
+                  <input
+                    {...register("guardian.phone")}
+                    id="guardian.phone"
+                    aria-invalid={errors?.guardian?.phone ? "true" : "false"}
+                    type="text"
+                    className="input input-bordered w-full"
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <label className="label" htmlFor="guardian.address_1">
+                    <span className="label-text">Address Line 1</span>
+                  </label>
+                  <input
+                    {...register("guardian.address_1")}
+                    id="guardian.address_1"
+                    aria-invalid={
+                      errors?.guardian?.address_1 ? "true" : "false"
+                    }
+                    type="text"
+                    className="input input-bordered w-full"
+                  />
+                </div>
+                <div>
+                  <label className="label" htmlFor="guardian.address_2">
+                    <span className="label-text">Address Line 2</span>
+                  </label>
+                  <input
+                    {...register("guardian.address_2")}
+                    id="guardian.address_2"
+                    aria-invalid={
+                      errors?.guardian?.address_2 ? "true" : "false"
+                    }
+                    type="text"
+                    className="input input-bordered w-full"
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                <div>
+                  <label className="label" htmlFor="guardian.city">
+                    <span className="label-text">City</span>
+                  </label>
+                  <input
+                    {...register("guardian.city")}
+                    id="guardian.city"
+                    aria-invalid={errors?.guardian?.city ? "true" : "false"}
+                    type="text"
+                    className="input input-bordered w-full"
+                  />
+                </div>
+                <div>
+                  <label className="label" htmlFor="student_state">
+                    <span className="label-text">State</span>
+                  </label>
+                  <input
+                    {...register("guardian.state")}
+                    id="guardian.state"
+                    aria-invalid={errors?.guardian?.state ? "true" : "false"}
+                    type="text"
+                    className="input input-bordered w-full"
+                  />
+                </div>
+                <div>
+                  <label className="label" htmlFor="guardian.zip">
+                    <span className="label-text">Zip</span>
+                  </label>
+                  <input
+                    {...register("guardian.zip")}
+                    id="guardian.zip"
+                    aria-invalid={errors?.guardian?.zip ? "true" : "false"}
+                    type="text"
+                    className="input input-bordered w-full"
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
+                <div>
+                  <label className="label" htmlFor="guardian.familySize">
+                    <span className="label-text">Family Size</span>
+                  </label>
+                  <input
+                    {...register("guardian.familySize")}
+                    id="guardian.familySize"
+                    aria-invalid={
+                      errors?.guardian?.familySize ? "true" : "false"
+                    }
+                    type="text"
+                    className="input input-bordered w-full"
+                  />
+                  <ErrorMessage
+                    errors={errors}
+                    name="guardian.familySize"
+                    render={({ message }) => (
+                      <ErrorMessageWrapper message={message} />
+                    )}
+                  />
+                </div>
+                <div>
+                  <label className="label" htmlFor="guardian.monthlyIncome">
+                    <span className="label-text">Monthly Income</span>
+                  </label>
+                  <input
+                    {...register("guardian.monthlyIncome")}
+                    id="guardian.monthlyIncome"
+                    aria-invalid={
+                      errors?.guardian?.monthlyIncome ? "true" : "false"
+                    }
+                    type="text"
+                    className="input input-bordered w-full"
+                  />
+                  <ErrorMessage
+                    errors={errors}
+                    name="guardian.monthlyIncome"
+                    render={({ message }) => (
+                      <ErrorMessageWrapper message={message} />
+                    )}
+                  />
+                </div>
+              </div>
+              <div className="form-control">
+                <label
+                  className="label cursor-pointer justify-start"
+                  htmlFor="guardian.dliInterest"
+                >
+                  <input
+                    {...register("guardian.dliInterest")}
+                    id="guardian.dliInterest"
+                    aria-invalid={
+                      errors?.guardian?.dliInterest ? "true" : "false"
+                    }
+                    type="checkbox"
+                    className="checkbox mr-4"
+                  />
+                  <span className="label-text">
+                    Would you be interested in Dual Language Immersion (DLI) for
+                    your child?
+                  </span>
+                </label>
+              </div>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
+                <div>
+                  <label className="label" htmlFor="guardian.preferredLanguage">
+                    <span className="label-text">Prefered Language</span>
+                  </label>
+                  <input
+                    {...register("guardian.preferredLanguage")}
+                    id="guardian.preferredLanguage"
+                    aria-invalid={
+                      errors?.guardian?.preferredLanguage ? "true" : "false"
+                    }
+                    type="text"
+                    className="input input-bordered w-full"
+                  />
+                </div>
+                <div>
+                  <label className="label" htmlFor="guardian.preferredLocation">
+                    <span className="label-text">Prefered Location</span>
+                  </label>
+                  <select
+                    {...register("guardian.preferredLocation")}
+                    id="guardian.preferredLocation"
+                    className="select select-bordered w-full max-w-xs"
+                  >
+                    {sortedSchool.map((school) => (
+                      <option
+                        className="btn btn-ghost btn-block font-sans cursor-pointer normal-case text-lg "
+                        key={school._id}
+                        value={school.name}
+                      >
+                        {school.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
             </div>
-          </div>
-        </fieldset>
-      </div>
-      {/* Footer */}
-      <div className="flex justify-end space-x-3 mt-8">
-        <Link href="/dashboard" className="btn  btn-lg">
-          Cancel
-        </Link>
+          </fieldset>
+          <fieldset>
+            <legend>Status & Notes</legend>
+            <div className="space-y-5">
+              <div className="grid grid-cols-4 gap-6">
+                <div className="form-control w-full max-w-xs">
+                  <label className="label" htmlFor="status">
+                    <span className="label-text">Status</span>
+                  </label>
+                  <select
+                    {...register("status")}
+                    id="status"
+                    aria-invalid={errors?.status ? "true" : "false"}
+                    className="select select-bordered font-sans"
+                  >
+                    <option value="New">New</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Enrolled">Enrolled</option>
+                    <option value="Denied">Denied</option>
+                  </select>
+                </div>
 
-        <button type="submit" className="btn btn-secondary btn-lg">
-          Save and Close
-        </button>
-      </div>
-    </form>
+                <div className="col-span-3">
+                  <div className="form-control">
+                    <label className="label" htmlFor="notes">
+                      <span className="label-text">Notes</span>
+                    </label>
+                    <textarea
+                      {...register("note")}
+                      id="notes"
+                      aria-invalid={errors?.note ? "true" : "false"}
+                      className="textarea textarea-bordered textarea-lg w-full h-44"
+                      placeholder="Notes"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        {/* Footer */}
+        <div className="flex justify-end space-x-3 mt-8">
+          <Link href="/dashboard" className="btn  btn-lg">
+            Cancel
+          </Link>
+          <button type="submit" className="btn btn-secondary btn-lg">
+            Save and Close
+          </button>
+        </div>
+      </form>
+    </>
   );
 };
 

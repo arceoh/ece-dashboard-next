@@ -58,7 +58,7 @@ export async function GET(request: Request) {
     ...(iep && { "student.enrollInIEP": true }),
     ...(cashAid && { "guardian.cashAid": true }),
     ...(statusFilter.length > 0 && { status: { $in: statusFilter } }), // If statusFilter has values add filter
-    "guardian.preferedLocation": { $in: activeSchools }, // Filter from users settings.mySchools.active === true
+    "guardian.preferredLocation": { $in: activeSchools }, // Filter from users settings.mySchools.active === true
     ...(searchText.length > 3 && {
       $or: [
         { "student.firstName": { $regex: new RegExp(searchText, "i") } },

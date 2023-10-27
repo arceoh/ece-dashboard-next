@@ -71,7 +71,7 @@ const SurveyTableRow = ({ item: survey }: Props) => {
       </ColumnToggleView>
       <ColumnToggleView as={"td"} title="School Preference">
         <ColumnTD>
-          <p>{survey.guardian.preferedLocation}</p>
+          <p>{survey.guardian.preferredLocation}</p>
         </ColumnTD>
       </ColumnToggleView>
       <ColumnToggleView as={"td"} title="DLI">
@@ -86,7 +86,7 @@ const SurveyTableRow = ({ item: survey }: Props) => {
       <ColumnToggleView as={"td"} title="Student">
         <ColumnTD>
           <p>
-            {survey.student.firstName} {survey.guardian.lastName}
+            {survey.student.firstName} {survey.student.lastName}
           </p>
         </ColumnTD>
       </ColumnToggleView>
