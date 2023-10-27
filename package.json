@@ -12,6 +12,7 @@
     "@headlessui/react": "^1.7.17",
     "@hookform/error-message": "^2.0.1",
     "@hookform/resolvers": "^3.3.2",
+    "clsx": "^2.0.0",
     "dayjs": "^1.11.10",
     "install": "^0.13.0",
     "mongoose": "^7.6.1",

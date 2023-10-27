@@ -8,10 +8,9 @@ import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import z from "zod";
 import { updateSurvey } from "../actions";
-// import ErrorMessage from "./ErrorMessage";
+import { cn } from "@/utils/cn";
 import { ErrorMessage } from "@hookform/error-message";
 import ErrorMessageWrapper from "./ErrorMessageWrapper";
-import { twMerge } from "tailwind-merge";
 
 type Props = {
   survey: Survey;
@@ -120,10 +119,9 @@ const SurveyForms = ({ survey, schoolsList }: Props) => {
                     {...register("student.firstName")}
                     id="student.firstName"
                     type="text"
-                    className={twMerge(
-                      "input input-bordered w-full",
-                      errors?.student?.lastName && "input-error"
-                    )}
+                    className={cn("input input-bordered w-full", {
+                      "input-error": errors?.student?.lastName,
+                    })}
                     aria-invalid={errors?.student?.firstName ? "true" : "false"}
                   />
                   <ErrorMessage
@@ -157,7 +155,7 @@ const SurveyForms = ({ survey, schoolsList }: Props) => {
                     aria-invalid={errors?.student?.lastName ? "true" : "false"}
                     id="student.lastName"
                     type="text"
-                    className={twMerge(
+                    className={cn(
                       "input input-bordered w-full",
                       errors?.student?.lastName && "input-error"
                     )}
@@ -181,7 +179,7 @@ const SurveyForms = ({ survey, schoolsList }: Props) => {
                     id="student.birthdate"
                     aria-invalid={errors?.student?.birthdate ? "true" : "false"}
                     type="text"
-                    className={twMerge(
+                    className={cn(
                       "input input-bordered w-full",
                       errors?.student?.birthdate && "input-error"
                     )}
