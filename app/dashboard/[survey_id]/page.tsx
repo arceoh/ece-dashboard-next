@@ -5,6 +5,7 @@ import { Survey } from "@/app/entities/Survey";
 import Loading from "./loading";
 import { headers } from "next/headers";
 import { BASE_URL } from "@/app/config";
+import Container from "@/app/components/Container";
 
 type Props = {
   params: { survey_id: string };
@@ -28,10 +29,10 @@ const EditSurveyPage = async ({ params: { survey_id } }: Props) => {
 
   return (
     <Suspense fallback={<Loading />}>
-      <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 pt-4">
+      <Container>
         <h1>Preschool Interest List Survey</h1>
         <SurveyForms schoolsList={schoolsList} survey={survey} />
-      </div>
+      </Container>
     </Suspense>
   );
 };

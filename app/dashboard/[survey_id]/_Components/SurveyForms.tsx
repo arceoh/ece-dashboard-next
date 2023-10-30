@@ -1,15 +1,14 @@
 "use client";
 import { School } from "@/app/entities/School";
 import { Survey, SurveyFormDataSchema } from "@/app/entities/Survey";
+import { cn } from "@/utils/cn";
+import { ErrorMessage } from "@hookform/error-message";
 import { zodResolver } from "@hookform/resolvers/zod";
 import dayjs from "dayjs";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import z from "zod";
 import { updateSurvey } from "../actions";
-import { cn } from "@/utils/cn";
-import { ErrorMessage } from "@hookform/error-message";
 import ErrorMessageWrapper from "./ErrorMessageWrapper";
 
 type Props = {
@@ -477,7 +476,7 @@ const SurveyForms = ({ survey, schoolsList }: Props) => {
             <legend>Status & Notes</legend>
             <div className="space-y-5">
               <div className="grid grid-cols-4 gap-6">
-                <div className="form-control w-full max-w-xs">
+                <div className="form-control w-full max-w-xs col-span-4 md:col-span-1">
                   <label className="label" htmlFor="status">
                     <span className="label-text">Status</span>
                   </label>
@@ -493,8 +492,7 @@ const SurveyForms = ({ survey, schoolsList }: Props) => {
                     <option value="Denied">Denied</option>
                   </select>
                 </div>
-
-                <div className="col-span-3">
+                <div className="col-span-4 md:col-span-3">
                   <div className="form-control">
                     <label className="label" htmlFor="notes">
                       <span className="label-text">Notes</span>
@@ -514,9 +512,13 @@ const SurveyForms = ({ survey, schoolsList }: Props) => {
         </div>
         {/* Footer */}
         <div className="flex justify-end space-x-3 mt-8">
-          <Link href="/dashboard" className="btn  btn-lg">
+          <button
+            onClick={() => router.back()}
+            type="button"
+            className="btn  btn-lg"
+          >
             Cancel
-          </Link>
+          </button>
           <button type="submit" className="btn btn-secondary btn-lg">
             Save and Close
           </button>

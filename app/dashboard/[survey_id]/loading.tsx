@@ -1,9 +1,10 @@
 "use server";
+import Container from "@/app/components/Container";
 import Link from "next/link";
 
 const loading = () => {
   return (
-    <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 pt-4">
+    <Container>
       <h1>Preschool Interest List Survey</h1>
       <div className="edit-survey mb-28">
         <div className="space-y-5">
@@ -186,7 +187,7 @@ const loading = () => {
           <button className="btn btn-secondary btn-lg">Save and Close</button>
         </div>
       </div>
-    </div>
+    </Container>
   );
 };
 
