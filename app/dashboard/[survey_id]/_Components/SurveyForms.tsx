@@ -519,8 +519,14 @@ const SurveyForms = ({ survey, schoolsList }: Props) => {
           >
             Cancel
           </button>
-          <button type="submit" className="btn btn-secondary btn-lg">
-            Save and Close
+          <button
+            type="submit"
+            className={cn(
+              "btn btn-secondary btn-lg",
+              isSubmitting && "disabled"
+            )}
+          >
+            {isSubmitting ? "...Submitting" : "Save and Close"}
           </button>
         </div>
       </form>
