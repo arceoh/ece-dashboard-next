@@ -2,32 +2,37 @@
 import Container from "@/app/components/Container";
 import Link from "next/link";
 
+const inputFormSkeleton =
+  "border border-base-300 bg-base-200 w-full animate-pulse p-6 rounded-lg";
+
 const loading = () => {
   return (
     <Container>
       <h1>Preschool Interest List Survey</h1>
       <div className="edit-survey mb-28">
         <div className="space-y-5">
-          <fieldset>
-            <legend>Student Information</legend>
+          <div>
+            <legend className="text-2xl font-bold capitalize">
+              Student Information
+            </legend>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
               <div>
                 <div className="label">
                   <span className="label-text">First Name</span>
                 </div>
-                <div className="input input-bordered w-full" />
+                <div className={inputFormSkeleton} />
               </div>
               <div>
                 <div className="label">
                   <span className="label-text">Middle Name</span>
                 </div>
-                <div className="input input-bordered w-full" />
+                <div className={inputFormSkeleton} />
               </div>
               <div>
                 <div className="label">
                   <span className="label-text">Last Name</span>
                 </div>
-                <div className="input input-bordered w-full" />
+                <div className={inputFormSkeleton} />
               </div>
             </div>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -35,7 +40,7 @@ const loading = () => {
                 <div className="label">
                   <span className="label-text">Birthdate</span>
                 </div>
-                <div className="input input-bordered w-full" />
+                <div className={inputFormSkeleton} />
               </div>
             </div>
             <div className="form-control">
@@ -47,34 +52,36 @@ const loading = () => {
                 </span>
               </div>
             </div>
-          </fieldset>
-          <fieldset>
+          </div>
+          <div>
             <div>
-              <legend>Guardian Information</legend>
+              <legend className="text-2xl font-bold capitalize">
+                Guardian Information
+              </legend>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div>
                   <div className="font-semibold text-gray-700 dark:text-gray-200">
                     <span className="label-text">First Name</span>
                   </div>
-                  <div className="input input-bordered w-full" />
+                  <div className={inputFormSkeleton} />
                 </div>
                 <div>
                   <div className="font-semibold text-gray-700 dark:text-gray-200">
                     <span className="label-text">Last Name</span>
                   </div>
-                  <div className="input input-bordered w-full" />
+                  <div className={inputFormSkeleton} />
                 </div>
                 <div>
                   <div className="font-semibold text-gray-700 dark:text-gray-200">
                     <span className="label-text">Email</span>
                   </div>
-                  <div className="input input-bordered w-full" />
+                  <div className={inputFormSkeleton} />
                 </div>
                 <div>
                   <div className="font-semibold text-gray-700 dark:text-gray-200">
                     <span className="label-text">Phone</span>
                   </div>
-                  <div className="input input-bordered w-full" />
+                  <div className={inputFormSkeleton} />
                 </div>
               </div>
             </div>
@@ -83,13 +90,13 @@ const loading = () => {
                 <div className="label">
                   <span className="label-text">Address Line 1</span>
                 </div>
-                <div className="input input-bordered w-full" />
+                <div className={inputFormSkeleton} />
               </div>
               <div>
                 <div className="label">
                   <span className="label-text">Address Line 2</span>
                 </div>
-                <div className="input input-bordered w-full" />
+                <div className={inputFormSkeleton} />
               </div>
             </div>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -97,19 +104,19 @@ const loading = () => {
                 <div className="label">
                   <span className="label-text">City</span>
                 </div>
-                <div className="input input-bordered w-full" />
+                <div className={inputFormSkeleton} />
               </div>
               <div>
                 <div className="label">
                   <span className="label-text">State</span>
                 </div>
-                <div className="input input-bordered w-full" />
+                <div className={inputFormSkeleton} />
               </div>
               <div>
                 <div className="label">
                   <span className="label-text">Zip</span>
                 </div>
-                <div className="input input-bordered w-full" />
+                <div className={inputFormSkeleton} />
               </div>
             </div>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
@@ -117,13 +124,13 @@ const loading = () => {
                 <div className="label">
                   <span className="label-text">Family Size</span>
                 </div>
-                <div className="input input-bordered w-full" />
+                <div className={inputFormSkeleton} />
               </div>
               <div>
                 <div className="label">
                   <span className="label-text">Monthly Income</span>
                 </div>
-                <div className="input input-bordered w-full" />
+                <div className={inputFormSkeleton} />
               </div>
             </div>
             <div className="form-control">
@@ -140,17 +147,17 @@ const loading = () => {
                 <div className="label">
                   <span className="label-text">Prefered Language</span>
                 </div>
-                <div className="input input-bordered w-full" />
+                <div className={inputFormSkeleton} />
               </div>
               <div>
                 <div className="label">
                   <span className="label-text">Prefered Location</span>
                 </div>
-                <div className="input input-bordered w-full" />
+                <div className={inputFormSkeleton} />
               </div>
             </div>
-          </fieldset>
-          <fieldset>
+          </div>
+          <div>
             <legend>Status & Notes</legend>
             <div className="grid grid-cols-4 gap-6">
               <div className="form-control w-full max-w-xs">
@@ -177,7 +184,7 @@ const loading = () => {
                 </div>
               </div>
             </div>
-          </fieldset>
+          </div>
         </div>
         {/* Footer */}
         <div className="flex justify-end space-x-3 mt-8">
