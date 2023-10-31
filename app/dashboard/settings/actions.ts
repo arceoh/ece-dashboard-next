@@ -22,8 +22,6 @@ export async function updateSchool(school: School) {
     if (schoolToUpdate) {
       schoolToUpdate.active = !schoolToUpdate.active;
       await user.save();
-
-      console.log("User -> Settings -> mySchools: Updated Successfully.");
     } else {
       console.error(
         "School not found when updating: User -> Settings -> mySchools "

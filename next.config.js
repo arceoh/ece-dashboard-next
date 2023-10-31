@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    esmExternals: "loose",
     serverComponentsExternalPackages: ["mongoose"],
     serverActions: true,
   },
@@ -14,10 +13,6 @@ const nextConfig = {
         pathname: "/a/**",
       },
     ],
-  },
-  reactStrictMode: false,
-  compiler: {
-    removeConsole: false,
   },
 };
 

@@ -1,5 +1,3 @@
-import React from "react";
-
 const loading = () => {
   const schoolsCount = 24;
   const schoolsArray = Array.from(Array(schoolsCount).keys());
