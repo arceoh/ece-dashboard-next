@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 import { useFormStatus } from "react-dom";
 import { useRouter } from "next/navigation";
