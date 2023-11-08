@@ -17,4 +17,7 @@
   main .label {
     @apply font-medium;
   }
+  .pagination .tooltip::before {
+    @apply text-xs tracking-wider normal-case;
+  }
 }
