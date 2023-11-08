@@ -9,10 +9,12 @@
   main h2 {
     @apply mb-4 text-2xl font-bold capitalize;
   }
-  main form legend {
+  main form legend,
+  main .label {
     @apply text-2xl font-bold capitalize;
   }
-  main form.edit-survey label.label {
+  main form.edit-survey label.label,
+  main .label {
     @apply font-medium;
   }
 }

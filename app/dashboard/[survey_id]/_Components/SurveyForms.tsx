@@ -212,6 +212,23 @@ const SurveyForms = ({ survey, schoolsList }: Props) => {
                   </span>
                 </label>
               </div>
+              <div className="form-control">
+                <label
+                  className="cursor-pointer label justify-start"
+                  htmlFor="student.enrollInIEP"
+                >
+                  <input
+                    {...register("student.isReturningStudent")}
+                    id="student.isReturningStudent"
+                    aria-invalid={
+                      errors?.student?.isReturningStudent ? "true" : "false"
+                    }
+                    type="checkbox"
+                    className="checkbox mr-4"
+                  />
+                  <span className="label-text">Returning student?</span>
+                </label>
+              </div>
             </div>
           </fieldset>
           <fieldset>
