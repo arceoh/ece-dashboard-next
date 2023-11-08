@@ -1,8 +1,8 @@
 // @ts-nocheck
 "use client";
-import { experimental_useFormStatus as useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
 import { useRouter } from "next/navigation";
-import { experimental_useOptimistic as useOptimistic } from "react";
+import { useOptimistic } from "react";
 import camelCaseString from "@/utils/camelCaseString";
 import { updateSchool } from "./actions";
 import { School } from "@/app/entities/School";
